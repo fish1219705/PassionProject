@@ -154,6 +154,12 @@ namespace PassionProject.Controllers
             return _context.Desserts.Any(e => e.DessertId == id);
         }
 
-        
+
+        [HttpGet(template: "ListForIngredient/{id}")]
+        public async Task<IActionResult> ListDessertsForIngredient(int id)
+        {
+
+        }
+
     }
 }

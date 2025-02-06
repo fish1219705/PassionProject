@@ -105,5 +105,23 @@ namespace PassionProject.Controllers
             return _context.Ingredients.Any(e => e.IngredientId == id);
         }
 
+
+        [HttpGet(template: "ListForDessert/{id}")]
+        public async Task<IActionResult> ListIngredientsForDessert(int id)
+        {
+
+        }
+
+        [HttpPost("Link")]
+        public async Task<ActionResult> Link(int ingredientId, int dessertId)
+        {
+
+        }
+
+        [HttpDelete("Unlink")]
+        public async Task<ActionResult> Unlink(int ingredientId, int dessertId)
+        {
+            
+        }
     }
 }
