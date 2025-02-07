@@ -1,34 +1,37 @@
-﻿using System.Composition.Convention;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata;
 
 namespace PassionProject.Models
 {
-    public class DessertIngredient
+    public class Instruction
     {
-        public int DessertIngredientId { get; set; }
+        public int InstructionId { get; set; }
 
         public string ChangeIngredientOption { get; set; }
+        public string QtyOfIngredient { get; set; }
 
-        // a dessert ingredient (info) belongs to one dessert
+        // a instruction  belongs to one dessert
         public required virtual Dessert Dessert { get; set; }
         public int DessertId { get; set; }
 
-        // a dessert ingredient (info) belongs to one ingredient
+        // a instruction belongs to one ingredient
         public required virtual Ingredient Ingredient { get; set; }
         public int IngredientId { get; set; }
         
     }
 
-    public class DessertIngredientDto
+    public class InstructionDto
     {
-        public int? DessertIngredientId { get; set; }
+        public int InstructionId { get; set; }
         public string ChangeIngredientOption { get; set; }
+        public string QtyOfIngredient { get; set; }
         public int DessertId { get; set; }
         public int IngredientId { get; set; }
         
-        //flattened from DessertIngredient -> Dessert
+        //flattened from Instruction -> Dessert
         public string DessertName { get; set; }
 
-        //flattened from DessertIngredient -> Ingredient
+        //flattened from Instruction -> Ingredient
         public string IngredientName { get; set; }
     }
 

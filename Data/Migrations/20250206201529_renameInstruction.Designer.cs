@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PassionProject.Data;
 
@@ -11,9 +12,11 @@ using PassionProject.Data;
 namespace PassionProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250206201529_renameInstruction")]
+    partial class renameInstruction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace PassionProject.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("DessertIngredient", b =>
-                {
-                    b.Property<int>("DessertsDessertId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IngredientsIngredientId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DessertsDessertId", "IngredientsIngredientId");
-
-                    b.HasIndex("IngredientsIngredientId");
-
-                    b.ToTable("DessertIngredient");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -349,21 +337,6 @@ namespace PassionProject.Data.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("DessertIngredient", b =>
-                {
-                    b.HasOne("PassionProject.Models.Dessert", null)
-                        .WithMany()
-                        .HasForeignKey("DessertsDessertId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PassionProject.Models.Ingredient", null)
-                        .WithMany()
-                        .HasForeignKey("IngredientsIngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -418,13 +391,13 @@ namespace PassionProject.Data.Migrations
             modelBuilder.Entity("PassionProject.Models.Instruction", b =>
                 {
                     b.HasOne("PassionProject.Models.Dessert", "Dessert")
-                        .WithMany()
+                        .WithMany("Ingredients")
                         .HasForeignKey("DessertId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PassionProject.Models.Ingredient", "Ingredient")
-                        .WithMany()
+                        .WithMany("Ingredients")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -447,7 +420,14 @@ namespace PassionProject.Data.Migrations
 
             modelBuilder.Entity("PassionProject.Models.Dessert", b =>
                 {
+                    b.Navigation("Ingredients");
+
                     b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("PassionProject.Models.Ingredient", b =>
+                {
+                    b.Navigation("Ingredients");
                 });
 #pragma warning restore 612, 618
         }

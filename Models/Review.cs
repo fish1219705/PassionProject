@@ -18,15 +18,16 @@ namespace PassionProject.Models
         //[ForeignKey("Dessert")]
         public virtual Dessert Dessert { get; set; }
         public int DessertId { get; set; }
-        public string DessertName { get; set; }
+        
 
     }
     public class ReviewDto
     {
-        public int? ReviewId { get; set; }
+        public int ReviewId { get; set; }
         public string ReviewNumber { get; set; }
         public string ReviewContent { get; set; }
         public DateTime ReviewTime { get; set; }
-        public string DessertName { get; set; }
+        public int DessertId { get; set; }
+        public string? DessertName { get; set; }
     }
 }

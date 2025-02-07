@@ -16,7 +16,7 @@ namespace PassionProject.Models
         public string SpecificTag { get; set; }
 
         //A dessert can have many ingredients
-        public ICollection<DessertIngredient>? Ingredients { get; set; }
+        public ICollection<Ingredient>? Ingredients { get; set; }
 
         //A dessert has many reviews
         public ICollection<Review>? Reviews { get; set; }
@@ -24,7 +24,7 @@ namespace PassionProject.Models
     }
     public class DessertDto
     {
-        public int? DessertId { get; set; }
+        public int DessertId { get; set; }
         public string DessertName { get; set; }
         public string DessertDescription { get; set; }
         public string SpecificTag { get; set; }

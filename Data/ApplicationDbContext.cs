@@ -9,11 +9,12 @@ namespace PassionProject.Data
         public DbSet<Dessert> Desserts { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Instruction> Instructions { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
-        public DbSet<PassionProject.Models.DessertIngredient> DessertIngredient { get; set; } = default!;
+        //public DbSet<PassionProject.Models.Instruction> Insructions { get; set; } = default!;
     }
 }

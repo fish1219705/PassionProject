@@ -6,7 +6,7 @@ using System;
 
 namespace PassionProject.Services
 {
-    public class DessertIngredientService
+    public class InstructionService : IInstructionService
     {
     }
 }

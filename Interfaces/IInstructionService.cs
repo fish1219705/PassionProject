@@ -2,7 +2,7 @@
 
 namespace PassionProject.Interfaces
 {
-    public class IDessertIngredientService
+    public interface IInstructionService
     {
     }
 }

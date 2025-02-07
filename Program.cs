@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PassionProject.Data;
+using PassionProject.Services;
+using PassionProject.Interfaces;
 using PassionProject.Controllers;
 using PassionProject;
 
@@ -16,8 +18,16 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddEndpointsApiExplorer();
+// Associate service interfaces with their implementations
+builder.Services.AddScoped<IDessertService, DessertService>();
+builder.Services.AddScoped<IIngredientService, IngredientService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
 
+builder.Services.AddScoped<IInstructionService, InstructionService>();
+
+
+
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -47,10 +57,13 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.MapRazorPages();
 
 
 
