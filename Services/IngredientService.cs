@@ -17,7 +17,7 @@ namespace PassionProject.Services
 
         public async Task<IEnumerable<IngredientDto>> ListIngredients()
         {
-            // all ingredients
+            // all Ingredients
             List<Ingredient> Ingredients = await _context.Ingredients
                 .ToListAsync();
             // empty list of data transfer object IngredientDto
@@ -25,6 +25,7 @@ namespace PassionProject.Services
             // foreach Ingredient record in database
             foreach (Ingredient Ingredient in Ingredients)
             {
+                // create new instance of IngredientDto, add to list
                 IngredientDtos.Add(new IngredientDto()
                 {
                     IngredientId = Ingredient.IngredientId,
@@ -40,12 +41,16 @@ namespace PassionProject.Services
 
         public async Task<IngredientDto?> FindIngredient(int id)
         {
+            // first or default async will get the first (i)ngredient matching the {id}
             var Ingredient = await _context.Ingredients
                 .FirstOrDefaultAsync(i => i.IngredientId == id);
+
+            // no ingredient found
             if (Ingredient == null)
             {
                 return null;
             }
+            // create an instance of IngredientDto
             IngredientDto IngredientDto = new IngredientDto()
             {
                 IngredientId = Ingredient.IngredientId,
@@ -67,6 +72,7 @@ namespace PassionProject.Services
                 IngredientName = IngredientDto.IngredientName,
                 IngredientDescription = IngredientDto.IngredientDescription
             };
+            // flags that the object has changed
             _context.Entry(Ingredient).State = EntityState.Modified;
 
             try
@@ -95,7 +101,6 @@ namespace PassionProject.Services
                 IngredientName = IngredientDto.IngredientName,
                 IngredientDescription = IngredientDto.IngredientDescription,
             };
-
             // SQL Equivalent: Insert into Ingredients (..) values (..)
 
             try
@@ -139,39 +144,39 @@ namespace PassionProject.Services
             catch (Exception ex)
             {
                 response.Status = ServiceResponse.ServiceStatus.Error;
-                response.Messages.Add("Error encountered while deleting the ingredient");
+                response.Messages.Add("Error encountered while deleting the Ingredient");
                 return response;
             }
 
             response.Status = ServiceResponse.ServiceStatus.Deleted;
 
             return response;
+            }
 
-        }
+            public async Task<IEnumerable<IngredientDto>> ListIngredientsForDessert(int id)
+            {
 
-        public async Task<IEnumerable<IngredientDto>> ListIngredientsForDessert(int id)
-        {
-            // join DessertIngredient on dessert.dessertid = DessertIngredient.dessertid WHERE DessertIngredient.ingredientid = {id}
-            List<Ingredient> Ingredients = await _context.Ingredients
+                // join DessertIngredient on Ingredients.Ingredientid = DessertIngredient.Ingredientid WHERE DessertIngredient.dessertid = {id}
+                List<Ingredient> Ingredients = await _context.Ingredients
                 .Where(i => i.Desserts.Any(d => d.DessertId == id))
                 .ToListAsync();
 
-            // empty list of data transfer object IngredientDto
-            List<IngredientDto> IngredientDtos = new List<IngredientDto>();
-            // foreach Ingredient record in database
-            foreach (Ingredient Ingredient in Ingredients)
-            {
-                // create new instance of IngredientDto, add to list
-                IngredientDtos.Add(new IngredientDto()
+                // empty list of data transfer object IngredientDto
+                List<IngredientDto> IngredientDtos = new List<IngredientDto>();
+                // foreach Ingredient record in database
+                foreach (Ingredient Ingredient in Ingredients)
                 {
-                    IngredientId = Ingredient.IngredientId,
-                    IngredientName = Ingredient.IngredientName,
-                    IngredientDescription = Ingredient.IngredientDescription
-                });
+                // create new instance of IngredientDto, add to list
+                    IngredientDtos.Add(new IngredientDto()
+                    {
+                        IngredientId = Ingredient.IngredientId,
+                        IngredientName = Ingredient.IngredientName,
+                        IngredientDescription = Ingredient.IngredientDescription
+                    });
+                }
+                // return IngredientDtos
+                return IngredientDtos;
             }
-            // return IngredientDtos
-            return IngredientDtos;
-        }
 
         public async Task<ServiceResponse> LinkIngredientToDessert(int ingredientId, int dessertId)
         {

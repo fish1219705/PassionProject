@@ -10,12 +10,12 @@ namespace PassionProject.Models
         public required string IngredientName { get; set; }
         public required string IngredientDescription { get; set; }
 
-        ////An ingredient can be a part of many dessert ingredients
-        //public ICollection<Instruction>? Ingredients { get; set; }
-
-
-        //An ingredient can use in many desserts
+        //An ingredient can be used in many desserts
         public ICollection<Dessert>? Desserts { get; set; }
+
+        // to do::
+        // An ingredient can be part of many instructions
+        // public ICollection<Instruction>? Ingredients { get; set; }
 
     }
 
