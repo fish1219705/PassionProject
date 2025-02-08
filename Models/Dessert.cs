@@ -1,7 +1,7 @@
 ﻿using Microsoft.Identity.Client;
+using PassionProject.Models;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.OpenApi;
 using Microsoft.EntityFrameworkCore;
 using PassionProject.Data;
 
