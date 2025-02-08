@@ -25,6 +25,7 @@ namespace PassionProject.Services
             // foreach Dessert record in database
             foreach (Dessert Dessert in Desserts)
             {
+                // create new instance of DessertDto, add to list
                 DessertDtos.Add(new DessertDto()
                 {
                     DessertId = Dessert.DessertId,
@@ -40,12 +41,16 @@ namespace PassionProject.Services
 
         public async Task<DessertDto?> FindDessert(int id)
         {
+            // fisrt or default async will get the first (d)essert matching the {id}
             var Dessert = await _context.Desserts
                 .FirstOrDefaultAsync(d => d.DessertId == id);
+            
+            // no dessert found
             if(Dessert == null)
             {
                 return null;
             }
+            // create an instance of DessertDto
             DessertDto DessertDto = new DessertDto()
             {
                 DessertId = Dessert.DessertId,
@@ -54,7 +59,6 @@ namespace PassionProject.Services
                 SpecificTag = Dessert.SpecificTag
             };
             return DessertDto;
-
         }
 
         public async Task<ServiceResponse> UpdateDessert(DessertDto DessertDto)
@@ -69,6 +73,7 @@ namespace PassionProject.Services
                 DessertDescription = DessertDto.DessertDescription,
                 SpecificTag = DessertDto.SpecificTag
             };
+            // flags that the object has changed
             _context.Entry(Dessert).State = EntityState.Modified;
 
             try
@@ -98,7 +103,6 @@ namespace PassionProject.Services
                 DessertDescription = DessertDto.DessertDescription,
                 SpecificTag = DessertDto.SpecificTag
             };
-
             // SQL Equivalent: Insert into Desserts (..) values (..)
 
             try
@@ -113,7 +117,6 @@ namespace PassionProject.Services
                 serviceResponse.Messages.Add(ex.Message);
 
             }
-
 
             serviceResponse.Status = ServiceResponse.ServiceStatus.Created;
             serviceResponse.CreatedId = Dessert.DessertId;
@@ -154,7 +157,7 @@ namespace PassionProject.Services
 
         public async Task<IEnumerable<DessertDto>> ListDessertsForIngredient(int id)
         {
-            // join DessertIngredient on dessert.dessertid = DessertIngredient.dessertid WHERE DessertIngredient.ingredientid = {id}
+            // join DessertIngredient on desserts.dessertid = DessertIngredient.dessertid WHERE DessertIngredient.ingredientid = {id}
             List<Dessert> Desserts = await _context.Desserts
                 .Where(d => d.Ingredients.Any(i => i.IngredientId == id))
                 .ToListAsync();
@@ -172,11 +175,11 @@ namespace PassionProject.Services
                     DessertDescription = Dessert.DessertDescription,
                     SpecificTag = Dessert.SpecificTag
                 });
-        }
+            }
             // return DessertDtos
             return DessertDtos;
 
-    }
+        }
         public async Task<ServiceResponse> LinkDessertToIngredient(int dessertId, int ingredientId)
         {
             ServiceResponse serviceResponse = new();
