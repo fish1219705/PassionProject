@@ -129,7 +129,7 @@ namespace PassionProject.Services
                     ReviewContent = reviewDto.ReviewContent,
                     ReviewTime = reviewDto.ReviewTime,
                     Dessert = dessert,
-                    DessertId = reviewDto.DessertId,
+                    DessertId = reviewDto.DessertId
 
                 };
                 // SQL Equivalent: Insert into Reviews (..) values (..)

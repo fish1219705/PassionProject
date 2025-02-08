@@ -14,7 +14,9 @@ namespace PassionProject.Interfaces
        // related methods
 
        Task<IEnumerable<IngredientDto>> ListIngredientsForDessert(int id);
- 
+       Task<ServiceResponse> LinkIngredientToDessert(int ingredientId, int dessertId);
+       Task<ServiceResponse> UnlinkIngredientFromDessert(int ingredientId, int dessertId);
+
     }
 }
 

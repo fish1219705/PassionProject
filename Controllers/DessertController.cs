@@ -27,14 +27,15 @@ namespace PassionProject.Controllers
         /// </summary>
         /// <returns>
         /// 200 OK
-        /// [{DeesertDto}, {DessertDto}, ...]
+        /// [{DessertDto}, {DessertDto}, ...]
         /// </returns>
         /// <example>
-        /// GET: api/Desserts/List -> [{DessertDto}, {DessertDto}, ...]
+        /// GET: api/Dessert/List -> [{DessertDto}, {DessertDto}, ...]
         /// </example>
         [HttpGet(template:"List")]
         public async Task<ActionResult<IEnumerable<DessertDto>>> ListDesserts()
         {
+            // empty list of data transfer object DessertDto
             IEnumerable<DessertDto> DessertDtos = await _dessertService.ListDesserts();
 
             return Ok(DessertDtos);
@@ -52,7 +53,7 @@ namespace PassionProject.Controllers
         /// 404 Not Found
         /// </returns>
         /// <example>
-        /// GET: api/Desserts/Find/1 -> {DessertDto}
+        /// GET: api/Dessert/Find/1 -> {DessertDto}
         /// </example>
 
         [HttpGet(template: "Find/{id}")]
@@ -72,8 +73,25 @@ namespace PassionProject.Controllers
             }
         }
 
-        // PUT: api/Desserts/5
-       
+        /// <summary>
+        /// Updates a Dessert
+        /// </summary>
+        /// <param name="id">The ID of the dessert to update</param>
+        /// <param name="DessertDto">The required information to update the dessert ()</param>
+        /// <returns>
+        /// 400 Bad Request
+        /// or
+        /// 404 Not Found
+        /// or
+        /// 204 No Content
+        /// </returns>
+        /// <example>
+        /// PUT: api/Dessert/Update/2
+        /// Request Headers: Content-Type: application/json
+        /// Request Body: {DessertDto}
+        /// ->
+        /// Response Code: 204 No Content
+        /// </example>
         [HttpPut(template:"Update/{id}")]
         public async Task<ActionResult> UpdateDessert(int id, DessertDto DessertDto)
         {
@@ -94,12 +112,33 @@ namespace PassionProject.Controllers
                 {
                     return StatusCode(500,response.Messages);
                 }
-                return Created($"api/Dessert/FindDessert/{response.CreatedId}", DessertDto);
+
+                //Statis = Updated
+                return NoContent();
             }
 
-            // POST: api/Desserts
-       
-            [HttpPost(template:"Add")]
+
+        /// <summary>
+        /// Adds a Dessert
+        /// </summary>
+        /// <param name="DessertDto">The required information to add the dessert (DessertName,DessertDescription...)</param>
+        /// <returns>
+        /// 201 Created
+        /// Location: api/Dessert/Find/{DessertId}
+        /// {DessertDto}
+        /// or
+        /// 404 Not Found
+        /// </returns>
+        /// <example>
+        /// POST: api/Dessert/Add
+        /// Request Headers: Content-Type: application/json
+        /// Request Body: {DessertDto}
+        /// ->
+        /// Response Code: 201 Created
+        /// Response Headers: Location: api/Dessert/Find/{DessertId}
+        /// </example>
+
+        [HttpPost(template:"Add")]
             public async Task<ActionResult<Dessert>> AddDessert(DessertDto DessertDto)
             {
                 ServiceResponse response = await _dessertService.AddDessert(DessertDto);
@@ -117,6 +156,20 @@ namespace PassionProject.Controllers
                 return Created($"api/Dessert/FindDessert/{response.CreatedId}",DessertDto);
             }
 
+        /// <summary>
+        /// Deleted the dessert
+        /// </summary>
+        /// <param name="id">The id of the dessert to delete</param>
+        /// <returns>
+        /// 204 No Content
+        /// or
+        /// 404 Not Found
+        /// </returns>
+        /// <example>
+        /// DELETE: api/Dessert/Delete/2
+        /// ->
+        /// Response Code: 204 No Content
+        /// </example>
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteDessert(int id)
         {
@@ -136,6 +189,17 @@ namespace PassionProject.Controllers
         }
 
 
+        /// <summary>
+        /// Returns a list of Desserts for a specific ingredient by its {id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>
+        /// 200 OK
+        /// [{DessertDto}, {DessertDto},..]
+        /// </returns>
+        /// <example>
+        /// GET: api/Dessert/ListForIngredient/3 -> [{DessertDto}, {DessertDto},..]
+        /// </example>
         [HttpGet(template: "ListForIngredient/{id}")]
         public async Task<IActionResult> ListDessertsForIngredient(int id)
         {
@@ -144,19 +208,19 @@ namespace PassionProject.Controllers
             // return 200 OK with DessertDtos
             return Ok(DessertDtos);
         }
-
+  
         /// <summary>
         /// Unlinks a dessert from a ingredient
         /// </summary>
-        /// <param name="id">The id of the dessert</param>
-        /// <param name="id">The id of the ingredient</param>
+        /// <param name="dessertId">The id of the dessert</param>
+        /// <param name="ingredientId">The id of the ingredient</param>
         /// <returns>
         /// 204 No Content
         /// or
         /// 404 Not Found
         /// </returns>
         /// <example>
-        /// Delete: api/Dessert/Unlink?DessertId=4&IngredientId=12
+        /// Delete: api/Dessert/Unlink?DessertId=4&IngredientId=1
         /// ->
         /// Response Code: 204 No Content
         /// </example>
@@ -181,15 +245,15 @@ namespace PassionProject.Controllers
         /// <summary>
         /// Links a dessert to a ingredient
         /// </summary>
-        /// <param name="id">The id of the dessert</param>
-        /// <param name="id">The id of the ingredient</param>
+        /// <param name="dessertId">The id of the dessert</param>
+        /// <param name="ingredientId">The id of the ingredient</param>
         /// <returns>
         /// 204 No Content
         /// or
         /// 404 Not Found
         /// </returns>
         /// <example>
-        /// Post: api/Dessert/Link?DessertId=4&IngredientId=12
+        /// Post: api/Dessert/Link?DessertId=4&IngredientId=1
         /// ->
         /// Response Code: 204 No Content
         /// </example>

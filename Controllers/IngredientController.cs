@@ -145,5 +145,71 @@ namespace PassionProject.Controllers
             return Ok(IngredientDtos);
         }
 
+        /// <summary>
+        /// Unlinks a ingredient from a dessert
+        /// </summary>
+        /// <param name="id">The id of the ingredient</param>
+        /// <param name="id">The id of the dessert</param>
+        /// <returns>
+        /// 204 No Content
+        /// or
+        /// 404 Not Found
+        /// </returns>
+        /// <example>
+        /// Delete: api/Ingredient/Unlink?IngredientId=1&DessertId=1
+        /// ->
+        /// Response Code: 204 No Content
+        /// </example>
+        [HttpDelete("Unlink")]
+        public async Task<ActionResult> Unlink(int ingredientId, int dessertId)
+        {
+            ServiceResponse response = await _ingredientService.UnlinkIngredientFromDessert(ingredientId, dessertId);
+
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
+            {
+                return NotFound();
+            }
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, response.Messages);
+            }
+
+            return NoContent();
+
+        }
+
+        /// <summary>
+        /// Links a ingredient to a dessert
+        /// </summary>
+        /// <param name="id">The id of the ingredient</param>
+        /// <param name="id">The id of the dessert</param>
+        /// <returns>
+        /// 204 No Content
+        /// or
+        /// 404 Not Found
+        /// </returns>
+        /// <example>
+        /// Post: api/Ingredient/Link?IngredientId=4&DessertId=12
+        /// ->
+        /// Response Code: 204 No Content
+        /// </example>
+        [HttpPost("Link")]
+        public async Task<ActionResult> Link(int ingredientId, int dessertId)
+        {
+            ServiceResponse response = await _ingredientService.LinkIngredientToDessert(ingredientId, dessertId);
+
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
+            {
+                return NotFound();
+            }
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, response.Messages);
+            }
+
+            return NoContent();
+
+        }
+
     }
 }

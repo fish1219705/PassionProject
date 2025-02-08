@@ -172,5 +172,85 @@ namespace PassionProject.Services
             // return IngredientDtos
             return IngredientDtos;
         }
+
+        public async Task<ServiceResponse> LinkIngredientToDessert(int ingredientId, int dessertId)
+        {
+            ServiceResponse serviceResponse = new();
+
+            Ingredient? ingredient = await _context.Ingredients
+                .Include(i => i.Desserts)
+                .Where(i => i.IngredientId== ingredientId)
+                .FirstOrDefaultAsync();
+            Dessert? dessert = await _context.Desserts.FindAsync(dessertId);
+
+            // Data must link to a valid entity
+            if (dessert == null || ingredient == null)
+            {
+                serviceResponse.Status = ServiceResponse.ServiceStatus.NotFound;
+                if (dessert == null)
+                {
+                    serviceResponse.Messages.Add("Dessert was not found. ");
+                }
+                if (ingredient == null)
+                {
+                    serviceResponse.Messages.Add("Ingredient was not found.");
+                }
+                return serviceResponse;
+            }
+            try
+            {
+                ingredient.Desserts.Add(dessert);
+                _context.SaveChanges();
+            }
+            catch (Exception Ex)
+            {
+                serviceResponse.Messages.Add("There was an issue linking the dessert to the ingredient");
+                serviceResponse.Messages.Add(Ex.Message);
+            }
+
+
+            serviceResponse.Status = ServiceResponse.ServiceStatus.Created;
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse> UnlinkIngredientFromDessert(int ingredientId, int dessertId)
+        {
+            ServiceResponse serviceResponse = new();
+
+            Ingredient? ingredient = await _context.Ingredients
+                .Include(i => i.Desserts)
+                .Where(i => i.IngredientId == ingredientId)
+                .FirstOrDefaultAsync();
+            Dessert? dessert = await _context.Desserts.FindAsync(dessertId);
+
+            // Data must link to a valid entity
+            if (dessert == null || ingredient == null)
+            {
+                serviceResponse.Status = ServiceResponse.ServiceStatus.NotFound;
+                if (dessert == null)
+                {
+                    serviceResponse.Messages.Add("Dessert was not found. ");
+                }
+                if (ingredient == null)
+                {
+                    serviceResponse.Messages.Add("Ingredient was not found.");
+                }
+                return serviceResponse;
+            }
+            try
+            {
+                ingredient.Desserts.Remove(dessert);
+                _context.SaveChanges();
+            }
+            catch (Exception Ex)
+            {
+                serviceResponse.Messages.Add("There was an issue unlinking the dessert to the ingredient");
+                serviceResponse.Messages.Add(Ex.Message);
+            }
+
+
+            serviceResponse.Status = ServiceResponse.ServiceStatus.Deleted;
+            return serviceResponse;
+        }
     }
 }
