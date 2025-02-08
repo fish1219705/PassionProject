@@ -25,45 +25,45 @@ namespace PassionProject.Controllers
         }
 
         /// <summary>
-        /// Returns a list of Desserts, each represented by a DessertDto with their asscoiated Ingredients and Reviews
+        /// Returns a list of Reviews, each represented by a ReviewDto with its asscoiated Dessert
         /// </summary>
         /// <returns>
         /// 200 OK
-        /// [{DeesertDto}, {DessertDto}, ...]
+        /// [{ReviewDto}, {ReviewDto}, ...]
         /// </returns>
         /// <example>
-        /// GET: api/Desserts/List -> [{DessertDto}, {DessertDto}, ...]
+        /// GET: api/Review/List -> [{ReviewDto}, {ReviewDto}, ...]
         /// </example>
         [HttpGet(template: "List")]
         public async Task<ActionResult<IEnumerable<ReviewDto>>> ListReviews()
         {
-            IEnumerable<ReviewDto> ReviewDtos = await _reviewService.ListReviews();
-
-            return Ok(ReviewDtos);
+            // returns a list of review dtos
+            IEnumerable<ReviewDto> reviewDtos = await _reviewService.ListReviews();
+            // return 200 OK with ReviewDtos
+            return Ok(reviewDtos);
         }
 
 
         /// <summary>
-        /// Returns a single Dessert specified by its {id}
+        /// Returns a single Review specified by its {id}, represented by a Review Dto with its associated Dessert
         /// </summary>
-        /// <param name="id">The dessert id</param>
+        /// <param name="id">The review id</param>
         /// <returns>
         /// 200 OK
-        /// {DessertDto}
+        /// {ReviewDto}
         /// or
         /// 404 Not Found
         /// </returns>
         /// <example>
-        /// GET: api/Desserts/Find/1 -> {DessertDto}
+        /// GET: api/Review/Find/1 -> {ReviewDto}
         /// </example>
-
         [HttpGet(template: "Find/{id}")]
         public async Task<ActionResult<ReviewDto>> FindReview(int id)
         {
 
             var review = await _reviewService.FindReview(id);
 
-            // if the dessert could not be located, return 404 Not Found
+            // if the review could not be located, return 404 Not Found
             if (review == null)
             {
                 return NotFound();
@@ -74,19 +74,30 @@ namespace PassionProject.Controllers
             }
         }
 
-        // PUT: api/Desserts/5
-       
+        /// <summary>
+        /// Updates a review
+        /// </summary>
+        /// <param name="id">The ID of Review to update</param>
+        /// <param name="reviewDto">The required information to update the review (ReviewId, ReviewNumber, ReviewContent, ReviewTime, OrderId)</param>
+        /// <returns>
+        /// 400 Bad Request
+        /// or
+        /// 404 Not Found
+        /// or
+        /// 204 No Content
+        /// </returns>
         [HttpPut(template: "Update/{id}")]
-        public async Task<ActionResult> UpdateReview(int id, ReviewDto ReviewDto)
+        public async Task<ActionResult> UpdateReview(int id, ReviewDto reviewDto)
         {
-            // {id} in URL must match DessertId in POST Body
-            if (id != ReviewDto.ReviewId)
+            // {id} in URL must match ReviewId in POST Body
+            if (id != reviewDto.ReviewId)
             {
                 //404 Bad Request
                 return BadRequest();
             }
 
-            ServiceResponse response = await _reviewService.UpdateReview(ReviewDto);
+            ServiceResponse response = await _reviewService.UpdateReview(reviewDto);
+
             if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
                 return NotFound(response.Messages);
@@ -96,15 +107,31 @@ namespace PassionProject.Controllers
             {
                 return StatusCode(500, response.Messages);
             }
-            return Created($"api/Review/FindReview/{response.CreatedId}", ReviewDto);
+
+            //Status = Updated
+            return NoContent();
+        
         }
 
-        // POST: api/Desserts
 
+        /// <summary>
+        ///  Adds an Review
+        /// </summary>
+        /// <param name="reviewDto">The required information to add the review (ReviewNumber, ReviewContent, ReviewTime, OrderId)</param>
+        /// <returns>
+        /// 201 Created
+        /// Location: api/Review/Find/{ReviewId}
+        /// {ReviewDto}
+        /// or
+        /// 404 Not Found
+        /// </returns>
+        /// <example>
+        /// POST api/Review/Add
+        /// </example>
         [HttpPost(template: "Add")]
-        public async Task<ActionResult<Review>> AddReview(ReviewDto ReviewDto)
+        public async Task<ActionResult<Review>> AddReview(ReviewDto reviewDto)
         {
-            ServiceResponse response = await _reviewService.AddReview(ReviewDto);
+            ServiceResponse response = await _reviewService.AddReview(reviewDto);
 
             if (response.Status == ServiceResponse.ServiceStatus.NotFound)
             {
@@ -116,9 +143,18 @@ namespace PassionProject.Controllers
             }
 
             // returns 201 Created with Location
-            return Created($"api/Review/FindReview/{response.CreatedId}", ReviewDto);
+            return Created($"api/Review/FindReview/{response.CreatedId}", reviewDto);
         }
 
+        /// <summary>
+        /// Deletes the Review
+        /// </summary>
+        /// <param name="id">The id of the Review to delete</param>
+        /// <returns>
+        /// 201 No Content
+        /// or
+        /// 404 Not Found
+        /// </returns>
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteReview(int id)
         {
@@ -137,14 +173,14 @@ namespace PassionProject.Controllers
 
         }
 
-
+        //ListReviewForDessert
         [HttpGet(template: "ListForDessert/{id}")]
         public async Task<IActionResult> ListReviewsForDessert(int id)
         {
             // empty list of data transfer object ReviewDto
-            IEnumerable<ReviewDto> ReviewDtos = await _reviewService.ListReviewsForDessert(id);
+            IEnumerable<ReviewDto> reviewDtos = await _reviewService.ListReviewsForDessert(id);
             // return 200 OK with ReviewDtos
-            return Ok(ReviewDtos);
+            return Ok(reviewDtos);
         }
 
     }

@@ -18,7 +18,7 @@ namespace PassionProject.Services
 
         public async Task<IEnumerable<ReviewDto>> ListReviews()
         {
-            // all reviews
+            // include will join the (r)eview with 1 dessert
             List<Review> reviews = await _context.Reviews
                 .Include(r => r.Dessert)
                 .ToListAsync();
@@ -44,23 +44,28 @@ namespace PassionProject.Services
 
         public async Task<ReviewDto?> FindReview(int id)
         {
-            var Review = await _context.Reviews
+            // include will join (r)eview with 1 dessert
+            // first or default async will get the first (r)eview matching the {id}
+            var review = await _context.Reviews
                 .Include(i => i.Dessert)
                 .FirstOrDefaultAsync(r => r.ReviewId == id);
-            if (Review == null)
+
+            // no review found
+            if (review == null)
             {
                 return null;
             }
-            ReviewDto ReviewDto = new ReviewDto()
+            // create an instance of reviewDto
+            ReviewDto reviewDto = new ReviewDto()
             {
-                ReviewId = Review.ReviewId,
-                ReviewNumber = Review.ReviewNumber,
-                ReviewContent = Review.ReviewContent,
-                ReviewTime = Review.ReviewTime,
-                DessertId = Review.DessertId,
-                DessertName = Review.Dessert.DessertName
+                ReviewId = review.ReviewId,
+                ReviewNumber = review.ReviewNumber,
+                ReviewContent = review.ReviewContent,
+                ReviewTime = review.ReviewTime,
+                DessertId = review.DessertId,
+                DessertName = review.Dessert.DessertName
             };
-            return ReviewDto;
+            return reviewDto;
 
         }
 
@@ -85,14 +90,13 @@ namespace PassionProject.Services
                 ReviewTime = reviewDto.ReviewTime,
                 Dessert = dessert,
                 DessertId = reviewDto.DessertId
-
             };
             // flags that the object has changed
             _context.Entry(review).State = EntityState.Modified;
 
             try
             {
-                //SQL Equivalent: Update Reviews set ... where DessertId={id}
+                //SQL Equivalent: Update Reviews set ... where ReviewId={id}
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -102,6 +106,7 @@ namespace PassionProject.Services
                 return serviceResponse;
             }
             serviceResponse.Status = ServiceResponse.ServiceStatus.Updated;
+
             return serviceResponse;
         }
 
@@ -122,7 +127,6 @@ namespace PassionProject.Services
                 return serviceResponse;
             }
 
-                // Create instance of Review
                 Review review = new Review()
                 {
                     ReviewNumber = reviewDto.ReviewNumber,
@@ -130,9 +134,8 @@ namespace PassionProject.Services
                     ReviewTime = reviewDto.ReviewTime,
                     Dessert = dessert,
                     DessertId = reviewDto.DessertId
-
                 };
-                // SQL Equivalent: Insert into Reviews (..) values (..)
+                // SQL Equivalent: Insert into reviews (..) values (..)
 
                 try
                 {
@@ -159,8 +162,8 @@ namespace PassionProject.Services
             {
                 ServiceResponse response = new();
                 // Review must exist in the first place
-                var Review = await _context.Reviews.FindAsync(id);
-                if (Review == null)
+                var review = await _context.Reviews.FindAsync(id);
+                if (review == null)
                 {
                     response.Status = ServiceResponse.ServiceStatus.NotFound;
                     response.Messages.Add("Review cannot be deleted because it does not exist.");
@@ -169,7 +172,7 @@ namespace PassionProject.Services
 
                 try
                 {
-                    _context.Reviews.Remove(Review);
+                    _context.Reviews.Remove(review);
                     await _context.SaveChangesAsync();
 
                 }
@@ -188,7 +191,7 @@ namespace PassionProject.Services
 
             public async Task<IEnumerable<ReviewDto>> ListReviewsForDessert(int id)
             {
-
+                // WHERE dessertid == id
                 List<Review> reviews = await _context.Reviews
                     .Include(r => r.Dessert)
                     .Where(r => r.DessertId == id)

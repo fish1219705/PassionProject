@@ -12,11 +12,13 @@ namespace PassionProject.Models
         public required string ReviewContent { get; set; }
         public DateTime ReviewTime { get; set; }
 
-        //A review belongs to one dessert
-        //A dessert has many reviews
 
         //[ForeignKey("Dessert")]
-        public virtual Dessert Dessert { get; set; }
+
+
+        //A review belongs to one dessert
+        //A dessert has many reviews
+        public required virtual Dessert Dessert { get; set; }
         public int DessertId { get; set; }
         
 
@@ -28,6 +30,8 @@ namespace PassionProject.Models
         public string ReviewContent { get; set; }
         public DateTime ReviewTime { get; set; }
         public int DessertId { get; set; }
+
+        // flattened from Review -> Dessert
         public string? DessertName { get; set; }
     }
 }
