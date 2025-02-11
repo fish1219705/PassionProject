@@ -22,7 +22,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IDessertService, DessertService>();
 builder.Services.AddScoped<IIngredientService, IngredientService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
-
 builder.Services.AddScoped<IInstructionService, InstructionService>();
 
 

@@ -13,9 +13,9 @@ namespace PassionProject.Models
         //An ingredient can be used in many desserts
         public ICollection<Dessert>? Desserts { get; set; }
 
-        // to do::
+
         // An ingredient can be part of many instructions
-        // public ICollection<Instruction>? Ingredients { get; set; }
+        public ICollection<Instruction>? Instructions { get; set; }
 
     }
 

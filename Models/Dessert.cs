@@ -21,6 +21,9 @@ namespace PassionProject.Models
         //A dessert has many reviews
         public ICollection<Review>? Reviews { get; set; }
 
+        //A dessert can be part of many instructions
+        public ICollection<Instruction>? Instructions { get; set; }
+
     }
     public class DessertDto
     {
