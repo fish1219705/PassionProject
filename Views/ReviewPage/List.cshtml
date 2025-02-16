@@ -1,5 +1,15 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<ReviewDto>
+
+
+<a href="/ReviewPage/New">Create New</a>
+
+<hr />
+
+<div class="row">
+    @foreach (var Review in Model)
+    {
+        <div>
+            <a href="/ReviewPage/Details/@Review.ReviewId">#@Review.ReviewNumber</a> : @Review.ReviewContent - @Review.DessertName
+        </div>
+    }
+</div>

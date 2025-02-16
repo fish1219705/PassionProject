@@ -1,5 +1,56 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<PassionProject.Models.InstructionDto>
+
 @{
+    ViewData["Title"] = "List";
 }
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="New">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DessertId)
+            </th>
+          
+            <th>
+                @Html.DisplayNameFor(model => model.IngredientId)
+            </th>
+         
+            <th>
+                @Html.DisplayNameFor(model => model.QtyOfIngredient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChangeIngredientOption)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DessertId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IngredientId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QtyOfIngredient)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChangeIngredientOption)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.InstructionId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.InstructionId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.InstructionId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

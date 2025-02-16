@@ -6,7 +6,6 @@ namespace PassionProject.Models
     public class Instruction
     {
         public int InstructionId { get; set; }
-
         public string ChangeIngredientOption { get; set; }
         public string QtyOfIngredient { get; set; }
 

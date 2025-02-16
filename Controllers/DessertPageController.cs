@@ -2,6 +2,7 @@
 using PassionProject.Interfaces;
 using PassionProject.Models;
 using PassionProject.Models.ViewModels;
+using PassionProject.Services;
 
 namespace PassionProject.Controllers
 {
@@ -10,14 +11,16 @@ namespace PassionProject.Controllers
        private readonly IDessertService _dessertService;
         private readonly IIngredientService _ingredientService;
         private readonly IReviewService _reviewService;
+        private readonly IInstructionService _instructionService;
 
         // dependency injection of service interfaces
 
-        public DessertPageController(IDessertService DessertService, IIngredientService IngredientService, IReviewService ReviewService)
+        public DessertPageController(IDessertService DessertService, IIngredientService IngredientService, IReviewService ReviewService, IInstructionService InstructionService)
         {
             _dessertService = DessertService;
             _ingredientService = IngredientService;
             _reviewService = ReviewService;
+            _instructionService = InstructionService;
         }
 
         public IActionResult Index()
@@ -38,7 +41,11 @@ namespace PassionProject.Controllers
         {
             DessertDto? DessertDto = await _dessertService.FindDessert(id);
             IEnumerable<IngredientDto> AssociatedIngredients = await _ingredientService.ListIngredientsForDessert(id);
+            IEnumerable<IngredientDto> Ingredients = await _ingredientService.ListIngredients();
             IEnumerable<ReviewDto> AssociatedReviews = await _reviewService.ListReviewsForDessert(id);
+
+            //need the instructions for this dessert
+            IEnumerable<InstructionDto> Instructions = await _instructionService.ListInstructionsForDessert(id);
 
             if (DessertDto == null)
             {
@@ -51,7 +58,10 @@ namespace PassionProject.Controllers
                 {
                     Dessert = DessertDto,
                     DessertIngredients = AssociatedIngredients,
-                    DessertReviews = AssociatedReviews
+                    AllIngredients = Ingredients,
+                    DessertReviews = AssociatedReviews,
+                    DessertInstructions = Instructions
+
                 };
                 return View(DessertInfo);
             }
@@ -137,6 +147,26 @@ namespace PassionProject.Controllers
             {
                 return View("Error", new ErrorViewModel() { Errors = response.Messages });
             }
+        }
+
+        //POST DessertPage/LinkToIngredient
+        //DATA: ingredientId={ingredientId}&dessertId={dessertId}
+        [HttpPost]
+        public async Task<IActionResult> LinkToIngredient([FromForm] int dessertId, [FromForm] int ingredientId)
+        {
+            await _ingredientService.LinkIngredientToDessert(ingredientId, dessertId);
+
+            return RedirectToAction("Details", new { id = dessertId });
+        }
+
+        //POST DessertPage/UnlinkFromIngredient
+        //DATA: ingredientId={ingredientId}&dessertId={dessertId}
+        [HttpPost]
+        public async Task<IActionResult> UnlinkFromIngredient([FromForm] int dessertId, [FromForm] int ingredientId)
+        {
+            await _ingredientService.UnlinkIngredientFromDessert(ingredientId, dessertId);
+
+            return RedirectToAction("Details", new { id = dessertId });
         }
     }
 }

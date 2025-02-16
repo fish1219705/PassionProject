@@ -1,5 +1,66 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PassionProject.Models.ViewModels.InstructionNew
+
 @{
+    ViewData["Title"] = "New";
 }
+
+<h1>New</h1>
+
+<h4>Instruction</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="POST" action="/InstructionPage/Add">
+    
+            <div class="form-group">
+                <label class="control-label">Qty:</label>
+                <input name="QtyOfIngredient" class="form-control" />
+
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Ingredient:</label>
+                <select name="IngredientId">
+                    <!--  get ingredient options here -->
+                    @foreach (var IngredientDto in Model.AllIngredients)
+                    {
+                        <option value="@IngredientDto.IngredientId">@IngredientDto.IngredientId -  @IngredientDto.IngredientName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Dessert:</label>
+                <select name="DessertId">
+                    <!--  get dessert options here -->
+                    @foreach (var DessertDto in Model.AllDesserts)
+                    {
+                        <option value="@DessertDto.DessertId">@DessertDto.DessertId - @DessertDto.DessertName</option>
+
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Change Ingredient Option:</label>
+                <input name="ChangeIngredientOption" class="form-control" />
+
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

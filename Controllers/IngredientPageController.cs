@@ -40,7 +40,7 @@ namespace PassionProject.Controllers
             IEnumerable<DessertDto> AssociatedDesserts = await _dessertService.ListDessertsForIngredient(id);
             IEnumerable<DessertDto> Desserts = await _dessertService.ListDesserts();
 
-            //need the instructions for this product
+            //need the instructions for this ingredient
             IEnumerable<InstructionDto> Instructions = await _instructionService.ListInstructionsForIngredient(id);
 
             if (IngredientDto == null)

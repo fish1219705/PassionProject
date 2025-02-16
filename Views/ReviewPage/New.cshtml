@@ -1,5 +1,26 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<form method="POST" action="/ReviewPage/Add">
+    <div class="form-row">
+        <label for="ReviewNumber">Review Number:</label>
+        <input type="text" name="ReviewNumber" id="ReviewNumber" />
+    </div>
+    <div class="form-row">
+        <label for="ReviewContent">Review Content:</label>
+        <input type="text" name="ReviewContent" id="ReviewContent" />
+    </div>
+    <div class="form-row">
+        <label for="ReviewUser">Review User:</label>
+        <input type="text" name="ReviewUser" id="ReviewUser" />
+    </div>
+    <div class="form-row">
+        <label for="ReviewTime">Review Time:</label>
+        <input type="text" name="ReviewTime" id="ReviewTime" />
+    </div>
+    <div class="form-row">
+        <label for="DessertId">Dessert ID:</label>
+        <input type="text" name="DessertId" id="DessertId" />
+    </div>
+
+    <div class="form-row">
+        <input type="submit" value="Add Review" />
+    </div>
+</form>

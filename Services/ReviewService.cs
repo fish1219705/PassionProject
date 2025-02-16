@@ -33,6 +33,7 @@ namespace PassionProject.Services
                     ReviewNumber = review.ReviewNumber,
                     ReviewContent = review.ReviewContent,
                     ReviewTime = review.ReviewTime,
+                    ReviewUser = review.ReviewUser,
                     DessertId = review.DessertId,
                     DessertName = review.Dessert.DessertName
                 });
@@ -62,6 +63,7 @@ namespace PassionProject.Services
                 ReviewNumber = review.ReviewNumber,
                 ReviewContent = review.ReviewContent,
                 ReviewTime = review.ReviewTime,
+                ReviewUser = review.ReviewUser,
                 DessertId = review.DessertId,
                 DessertName = review.Dessert.DessertName
             };
@@ -88,6 +90,7 @@ namespace PassionProject.Services
                 ReviewNumber = reviewDto.ReviewNumber,
                 ReviewContent = reviewDto.ReviewContent,
                 ReviewTime = reviewDto.ReviewTime,
+                ReviewUser = reviewDto.ReviewUser,
                 Dessert = dessert,
                 DessertId = reviewDto.DessertId
             };
@@ -132,8 +135,11 @@ namespace PassionProject.Services
                     ReviewNumber = reviewDto.ReviewNumber,
                     ReviewContent = reviewDto.ReviewContent,
                     ReviewTime = reviewDto.ReviewTime,
+                    ReviewUser = reviewDto.ReviewUser,
                     Dessert = dessert,
-                    DessertId = reviewDto.DessertId
+                    DessertId = reviewDto.DessertId,
+                    
+
                 };
                 // SQL Equivalent: Insert into reviews (..) values (..)
 
@@ -209,6 +215,7 @@ namespace PassionProject.Services
                         ReviewNumber = review.ReviewNumber,
                         ReviewContent = review.ReviewContent,
                         ReviewTime = review.ReviewTime,
+                        ReviewUser = review.ReviewUser,
                         DessertId = review.DessertId,
                         DessertName = review.Dessert.DessertName
                     });

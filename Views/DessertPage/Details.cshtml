@@ -23,13 +23,13 @@
     </div>
     <div class="col-md-6">
         <div>
-            <label>Ingredients:</label>
+            <label><h3>Ingredients:</h3></label>
             <ul>
                 @foreach (var IngredientDto in Model.DessertIngredients)
                 {
                     <li style="margin-bottom:10px">
                         <a href="/IngredientPage/Details/@IngredientDto.IngredientId">@IngredientDto.IngredientName</a>
-                        <form method="POST" action="/IngredientPage/UnlinkFromIngredient" style="display:inline">
+                        <form method="POST" action="/DessertPage/UnlinkFromIngredient" style="display:inline">
                             <input style="display:none" name="dessertId" value="@Model.Dessert.DessertId" />
                             <input style="display:none" name="ingredientId" value="@IngredientDto.IngredientId" />
                             <input type="submit" value="Remove" />
@@ -37,21 +37,34 @@
                     </li>
                 }
             </ul>
-            <form method="POST" action="/IngredientPage/LinkToDessert">
-                <input style="display:none" name="ingredientId" value="@Model.Ingredient.IngredientId" />
-                <select name="dessertId">
-                    @foreach (var DessertDto in Model.AllDesserts)
+            <form method="POST" action="/DessertPage/LinkToIngredient">
+                <input style="display:none" name="dessertId" value="@Model.Dessert.DessertId" />
+                <select name="ingredientId">
+                    @foreach (var IngredientDto in Model.AllIngredients)
                     {
-                        <option value="@DessertDto.DessertId">@DessertDto.DessertName</option>
+                        <option value="@IngredientDto.IngredientId">@IngredientDto.IngredientName</option>
                     }
                 </select>
                 <input type="submit" value="Add" />
             </form>
         </div>
+        <hr />
+         <div>
+            <h3>Reviews:</h3>
+            <div>
+                @foreach (var ReviewDto in Model.DessertReviews)
+                {
+
+                    <div> @ReviewDto.ReviewContent </div>
+                }
+
+            </div>
+        </div>
+        <hr />
         <div>
             <h3>Instruction:</h3>
             <div>
-                @foreach (var InstructionDto in Model.IngredientInstructions)
+                @foreach (var InstructionDto in Model.DessertInstructions)
                 {
 
                     <div> @InstructionDto.QtyOfIngredient @InstructionDto.DessertName (@InstructionDto.ChangeIngredientOption) </div>

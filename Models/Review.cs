@@ -11,6 +11,7 @@ namespace PassionProject.Models
         public required string ReviewNumber { get; set; }
         public required string ReviewContent { get; set; }
         public DateTime ReviewTime { get; set; }
+        public string ReviewUser { get; set; }
 
 
         //[ForeignKey("Dessert")]
@@ -29,6 +30,7 @@ namespace PassionProject.Models
         public string ReviewNumber { get; set; }
         public string ReviewContent { get; set; }
         public DateTime ReviewTime { get; set; }
+        public string ReviewUser { get; set; }
         public int DessertId { get; set; }
 
         // flattened from Review -> Dessert

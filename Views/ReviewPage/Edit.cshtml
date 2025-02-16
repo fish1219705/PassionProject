@@ -1,5 +1,29 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model PassionProject.Models.ReviewDto
+
+<form method="POST" action="/ReviewPage/Update/@Model.ReviewId">
+    <div style="display:none"><input name="ReviewId" value="@Model.ReviewId" /></div>
+    <div>
+        <label for="ReviewNumber">Review Number:</label>
+        <input type="text" name="ReviewNumber" id="ReviewNumber" value="@Model.ReviewNumber" />
+    </div>
+    <div>
+        <label for="ReviewContent">Review Content:</label>
+        <input type="text" name="ReviewContent" id="ReviewContent" value="@Model.ReviewContent" />
+    </div>
+    <div>
+        <label for="ReviewUser">Review User:</label>
+        <input type="text" name="ReviewUser" id="ReviewUser" value="@Model.ReviewUser" />
+    </div>
+    <div>
+        <label for="ReviewTime">Review Time:</label>
+        <input type="text" name="ReviewTime" id="ReviewTime" value="@Model.ReviewTime" />
+    </div>
+    <div class="form-row">
+        <label for="DessertId">Dessert ID:</label>
+        <input type="text" name="DessertId" id="DessertId" value="@Model.DessertId"/>
+    </div>
+
+    <div>
+        <input type="submit" value="Edit Review" />
+    </div>
+</form>
