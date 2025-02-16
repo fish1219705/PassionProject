@@ -22,27 +22,13 @@
             <ul>
                 @foreach (var DessertDto in Model.IngredientDesserts)
                 {
-                    <li style="margin-bottom:10px">
-                        <a href="/DessertPage/Details/@DessertDto.DessertId">@DessertDto.DessertName</a>
-                        <form method="POST" action="/IngredientPage/UnlinkFromDessert" style="display:inline">
-                            <input style="display:none" name="ingredientId" value="@Model.Ingredient.IngredientId" />
-                            <input style="display:none" name="dessertId" value="@DessertDto.DessertId" />
-                            <input type="submit" value="Remove" />
-                        </form>
-                    </li>
+                    <li>@DessertDto.DessertName</li>
+                   
                 }
             </ul>
-            <form method="POST" action="/IngredientPage/LinkToDessert">
-                <input style="display:none" name="ingredientId" value="@Model.Ingredient.IngredientId" />
-                <select name="dessertId">
-                    @foreach (var DessertDto in Model.AllDesserts)
-                    {
-                        <option value="@DessertDto.DessertId">@DessertDto.DessertName</option>
-                    }
-                </select>
-                <input type="submit" value="Add" />
-            </form>
+       
         </div>
+        <hr />
         <div>
             <h3>Instruction:</h3>
             <div>

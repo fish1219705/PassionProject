@@ -2,7 +2,7 @@
 {
     public class InstructionEdit
     {
-        // Order item to edit
+        // Instruction to edit
         public required InstructionDto Instruction { get; set; }
 
         //choose which dessert the instruction refers
