@@ -1,0 +1,64 @@
+﻿@model PassionProject.Models.ViewModels.DessertDetails
+
+
+<a href="/DessertPage/ConfirmDelete/@Model.Dessert.DessertId">Delete</a>
+<a href="/DessertPage/Edit/@Model.Dessert.DessertId">Edit</a>
+<a href="/DessertPage/List">Back</a>
+<div class="row">
+    <div class="col-md-6">
+        <div>
+            <label>Name</label>
+            <div>@Model.Dessert.DessertName</div>
+        </div>
+        <div>
+            <label>Description</label>
+            <div>@Model.Dessert.DessertDescription</div>
+        </div>
+         <div>
+            <label>Specific Tag</label>
+            <div>@Model.Dessert.SpecificTag</div>
+        </div>
+
+
+    </div>
+    <div class="col-md-6">
+        <div>
+            <label>Ingredients:</label>
+            <ul>
+                @foreach (var IngredientDto in Model.DessertIngredients)
+                {
+                    <li style="margin-bottom:10px">
+                        <a href="/IngredientPage/Details/@IngredientDto.IngredientId">@IngredientDto.IngredientName</a>
+                        <form method="POST" action="/IngredientPage/UnlinkFromIngredient" style="display:inline">
+                            <input style="display:none" name="dessertId" value="@Model.Dessert.DessertId" />
+                            <input style="display:none" name="ingredientId" value="@IngredientDto.IngredientId" />
+                            <input type="submit" value="Remove" />
+                        </form>
+                    </li>
+                }
+            </ul>
+            <form method="POST" action="/IngredientPage/LinkToDessert">
+                <input style="display:none" name="ingredientId" value="@Model.Ingredient.IngredientId" />
+                <select name="dessertId">
+                    @foreach (var DessertDto in Model.AllDesserts)
+                    {
+                        <option value="@DessertDto.DessertId">@DessertDto.DessertName</option>
+                    }
+                </select>
+                <input type="submit" value="Add" />
+            </form>
+        </div>
+        <div>
+            <h3>Instruction:</h3>
+            <div>
+                @foreach (var InstructionDto in Model.IngredientInstructions)
+                {
+
+                    <div> @InstructionDto.QtyOfIngredient @InstructionDto.DessertName (@InstructionDto.ChangeIngredientOption) </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+

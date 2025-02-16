@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PassionProject.Models;
 using System.Diagnostics;
+using PassionProject.Models.ViewModels;
 
 namespace PassionProject.Controllers
 {

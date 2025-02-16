@@ -1,0 +1,17 @@
+﻿@model PassionProject.Models.IngredientDto
+
+<form method="POST" action="/IngredientPage/Update/@Model.IngredientId">
+    <div style="display:none"><input name="IngredientId" value="@Model.IngredientId" /></div>
+    <div>
+        <label for="IngredientName">Ingredient Name:</label>
+        <input type="text" name="IngredientName" id="IngredientName" value="@Model.IngredientName" />
+    </div>
+    <div>
+        <label for="IngredientDescription">Ingredient Description:</label>
+        <input type="text" name="IngredientDescription" id="IngredientDescription" value="@Model.IngredientDescription" />
+    </div>
+
+    <div>
+        <input type="submit" value="Edit Ingredient" />
+    </div>
+</form>

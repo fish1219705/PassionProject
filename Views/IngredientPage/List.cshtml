@@ -1,0 +1,14 @@
+﻿@model IEnumerable<IngredientDto>
+
+<a href="/IngredientPage/New">Create New</a>
+
+<hr />
+
+<div class="row">
+    @foreach (var Ingredient in Model)
+    {
+        <div>
+            <a href="/IngredientPage/Details/@Ingredient.IngredientId">@Ingredient.IngredientName</a>
+        </div>
+    }
+</div>

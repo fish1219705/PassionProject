@@ -1,0 +1,9 @@
+﻿@model PassionProject.Models.IngredientDto
+
+<h1>Confirm Delete?</h1>
+<p>@Model.IngredientName</p>
+
+<form method="POST" action="/IngredientPage/Delete/@Model.IngredientId">
+    <input style="background:red; color:white;" type="submit" value="Confirm Delete" />
+
+</form>
