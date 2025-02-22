@@ -4,44 +4,46 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h2 style="text-align: center; color: #4CAF50;">Dessert List</h2>
 
-<p>
-    <a asp-action="New">Create New</a>
+<p style="text-align: center; margin-bottom:30px; margin-top:25px">
+    <a asp-action="New" style="background-color: #4CAF50; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px;">Create New</a>
 </p>
-<table class="table">
-<thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DessertName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DessertDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SpecificTag)
-        </th>
-        <th></th>
-    </tr>
-</thead>
-<tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DessertName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DessertDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SpecificTag)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DessertId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DessertId">Details</a> |
-                <a asp-action="ConfirmDelete" asp-route-id="@item.DessertId">Delete</a>
-            </td>
+
+<table class="table" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="border: 1px solid #ddd; padding: 10px; text-align: left;">
+                @Html.DisplayNameFor(model => model.DessertName)
+            </th>
+            <th style="border: 1px solid #ddd; padding: 10px; text-align: left;">
+                @Html.DisplayNameFor(model => model.DessertDescription)
+            </th>
+            <th style="border: 1px solid #ddd; padding: 10px; text-align: left;">
+                @Html.DisplayNameFor(model => model.SpecificTag)
+            </th>
+            <th style="border: 1px solid #ddd; padding: 10px;">Actions</th>
         </tr>
-}
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 10px;">
+                    @Html.DisplayFor(modelItem => item.DessertName)
+                </td>
+                <td style="border: 1px solid #ddd; padding: 10px;">
+                    @Html.DisplayFor(modelItem => item.DessertDescription)
+                </td>
+                <td style="border: 1px solid #ddd; padding: 10px;">
+                    @Html.DisplayFor(modelItem => item.SpecificTag)
+                </td>
+                <td style="border: 1px solid #ddd; padding: 10px;">
+                    <a asp-action="Edit" asp-route-id="@item.DessertId" style="color: #2196F3; text-decoration: none; margin-right: 10px;">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.DessertId" style="color: #ff9800; text-decoration: none; margin-right: 10px;">Details</a>
+                    <a asp-action="ConfirmDelete" asp-route-id="@item.DessertId" style="color: #f44336; text-decoration: none;">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

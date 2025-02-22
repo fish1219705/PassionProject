@@ -1,77 +1,100 @@
 ﻿@model PassionProject.Models.ViewModels.DessertDetails
 
+<div style="text-align: center; margin-bottom: 20px; margin-top:35px">
+    <a href="/DessertPage/ConfirmDelete/@Model.Dessert.DessertId"
+       style="background-color: #f44336; color: white; padding: 8px 12px; text-decoration: none; border-radius: 5px; margin-right: 10px;">
+        Delete
+    </a>
+    <a href="/DessertPage/Edit/@Model.Dessert.DessertId"
+       style="background-color: #2196F3; color: white; padding: 8px 12px; text-decoration: none; border-radius: 5px; margin-right: 10px;">
+        Edit
+    </a>
+    <a href="/DessertPage/List"
+       style="background-color: #ddd; color: black; padding: 8px 12px; text-decoration: none; border-radius: 5px;">
+        Back
+    </a>
+</div>
 
-<a href="/DessertPage/ConfirmDelete/@Model.Dessert.DessertId">Delete</a>
-<a href="/DessertPage/Edit/@Model.Dessert.DessertId">Edit</a>
-<a href="/DessertPage/List">Back</a>
-<div class="row">
-    <div class="col-md-6">
-        <div>
-            <label>Name</label>
-            <div>@Model.Dessert.DessertName</div>
-        </div>
-        <div>
-            <label>Description</label>
-            <div>@Model.Dessert.DessertDescription</div>
-        </div>
-         <div>
-            <label>Specific Tag</label>
-            <div>@Model.Dessert.SpecificTag</div>
+<div class="row" style="display: flex; justify-content: center;">
+    <div class="col-md-6"
+         style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
+        <h2 style="color: #4CAF50; text-align: center;">Dessert Details</h2>
+
+        <div style="margin-bottom: 15px;">
+            <label style="font-weight: bold;">Name:</label>
+            <div style="padding: 8px; background: #fff; border-radius: 5px;">@Model.Dessert.DessertName</div>
         </div>
 
+        <div style="margin-bottom: 15px;">
+            <label style="font-weight: bold;">Description:</label>
+            <div style="padding: 8px; background: #fff; border-radius: 5px;">@Model.Dessert.DessertDescription</div>
+        </div>
 
+        <div style="margin-bottom: 15px;">
+            <label style="font-weight: bold;">Specific Tag:</label>
+            <div style="padding: 8px; background: #fff; border-radius: 5px;">@Model.Dessert.SpecificTag</div>
+        </div>
     </div>
+
     <div class="col-md-6">
-        <div>
-            <label><h3>Ingredients:</h3></label>
+        <div style="margin-top: 20px; padding: 15px; background-color: #f2f2f2; border-radius: 8px;">
+            <h3>Ingredients:</h3>
             <ul>
                 @foreach (var IngredientDto in Model.DessertIngredients)
                 {
-                    <li style="margin-bottom:10px">
-                        <a href="/IngredientPage/Details/@IngredientDto.IngredientId">@IngredientDto.IngredientName</a>
+                    <li style="margin-bottom: 10px;">
+                        <a href="/IngredientPage/Details/@IngredientDto.IngredientId"
+                           style="color: #2196F3; text-decoration: none;">@IngredientDto.IngredientName</a>
                         <form method="POST" action="/DessertPage/UnlinkFromIngredient" style="display:inline">
                             <input style="display:none" name="dessertId" value="@Model.Dessert.DessertId" />
                             <input style="display:none" name="ingredientId" value="@IngredientDto.IngredientId" />
-                            <input type="submit" value="Remove" />
+                            <input type="submit" value="Remove"
+                                   style="background-color: #2196F3; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;" />
                         </form>
                     </li>
                 }
             </ul>
-            <form method="POST" action="/DessertPage/LinkToIngredient">
+
+            <form method="POST" action="/DessertPage/LinkToIngredient" style="margin-top: 10px;">
                 <input style="display:none" name="dessertId" value="@Model.Dessert.DessertId" />
-                <select name="ingredientId">
+                <select name="ingredientId"
+                        style="padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
                     @foreach (var IngredientDto in Model.AllIngredients)
                     {
                         <option value="@IngredientDto.IngredientId">@IngredientDto.IngredientName</option>
                     }
                 </select>
-                <input type="submit" value="Add" />
+                <input type="submit" value="Add"
+                       style="background-color: #4CAF50; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer;" />
             </form>
         </div>
+
         <hr />
-         <div>
+
+        <div style="margin-top: 20px; padding: 15px; background-color: #e9e9e9; border-radius: 8px;">
             <h3>Reviews:</h3>
-            <div>
+            <div style="padding: 10px; background: #fff; border-radius: 5px;">
                 @foreach (var ReviewDto in Model.DessertReviews)
                 {
-
-                    <div> @ReviewDto.ReviewContent </div>
+                    <div style="border-bottom: 1px solid #ddd; padding: 10px;">@ReviewDto.ReviewContent</div>
                 }
-
             </div>
         </div>
+
         <hr />
-        <div>
-            <h3>Instruction:</h3>
-            <div>
+
+        <div style="margin-top: 20px; padding: 15px; background-color: #f2f2f2; border-radius: 8px;">
+            <h3>Instructions:</h3>
+            <div style="padding: 10px; background: #fff; border-radius: 5px;">
                 @foreach (var InstructionDto in Model.DessertInstructions)
                 {
-
-                    <div> @InstructionDto.QtyOfIngredient @InstructionDto.IngredientName -  @InstructionDto.DessertName (@InstructionDto.ChangeIngredientOption) </div>
+                    <div style="border-bottom: 1px solid #ddd; padding: 10px;">
+                        @InstructionDto.QtyOfIngredient @InstructionDto.IngredientName - @InstructionDto.DessertName (@InstructionDto.ChangeIngredientOption)
+                    </div>
                 }
-
             </div>
         </div>
     </div>
 </div>
+
 

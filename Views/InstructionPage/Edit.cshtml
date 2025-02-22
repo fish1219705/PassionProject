@@ -4,77 +4,86 @@
     ViewData["Title"] = "View";
 }
 
-<h1>View</h1>
+<h1 style="text-align: center; color: #4CAF50;">Edit</h1>
 
-<h4>Instruction</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<h4 style="text-align: center; color: #333;">Instruction</h4>
+<hr style="border: 1px solid #ddd; width: 50%; margin: 0 auto;" />
+
+<div class="row" style="display: flex; justify-content: center; padding: 20px;">
+    <div class="col-md-4" style="max-width: 400px; padding: 20px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
         <form asp-action="Update" asp-route-id="@Model.Instruction.InstructionId">
 
             <input type="hidden" name="InstructionId" value="@Model.Instruction.InstructionId" />
 
-            <div class="form-group">
-                <label for="QtyOfIngredient">Qty</label>
-                <input name="QtyOfIngredient" value="@Model.Instruction.QtyOfIngredient" />
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label for="QtyOfIngredient" style="font-weight: bold; color: #333;">Quantity:</label>
+                <input name="QtyOfIngredient" value="@Model.Instruction.QtyOfIngredient"
+                       style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px;" />
             </div>
 
-            <div class="form-group">
-                <label for="DessertId" class="control-label"></label>
-                <select name="DessertId">
-
-                    @foreach (DessertDto dessertDto in Model.DessertOptions)
-                    {
-
-                        if (dessertDto.DessertId == Model.Instruction.DessertId)
-                        {
-                            <option value="@dessertDto.DessertId" selected="selected">#@dessertDto.DessertId @dessertDto.DessertName  </option>
-
-                        }
-                        else
-                        {
-                            <option value="@dessertDto.DessertId">#@dessertDto.DessertId @dessertDto.DessertName </option>
-                        }
-
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="IngredientId" class="control-label"></label>
-                <select name="IngredientId">
-
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label for="IngredientId" class="control-label" style="font-weight: bold; color: #333;">Ingredient:</label>
+                <select name="IngredientId"
+                        style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px;">
                     @foreach (IngredientDto ingredientDto in Model.IngredientOptions)
                     {
-
-                        if (ingredientDto.IngredientId == Model.Instruction.IngredientId)
+                        @if (ingredientDto.IngredientId == Model.Instruction.IngredientId)
                         {
-                            <option value="@ingredientDto.IngredientId" selected="selected">#@ingredientDto.IngredientId @ingredientDto.IngredientName</option>
+                            <option value="@ingredientDto.IngredientId" selected="selected">
+                                #@ingredientDto.IngredientId @ingredientDto.IngredientName
+                            </option>
                         }
                         else
                         {
-
-                            <option value="@ingredientDto.IngredientId">#@ingredientDto.IngredientId @ingredientDto.IngredientName</option>
+                            <option value="@ingredientDto.IngredientId">
+                                #@ingredientDto.IngredientId @ingredientDto.IngredientName
+                            </option>
                         }
-
                     }
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="ChangeIngredientOption">Change Ingredient Option</label>
-                <input name="ChangeIngredientOption" value="@Model.Instruction.ChangeIngredientOption" />
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label for="DessertId" class="control-label" style="font-weight: bold; color: #333;">Dessert:</label>
+                <select name="DessertId"
+                        style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px;">
+                    @foreach (DessertDto dessertDto in Model.DessertOptions)
+                    {
+                        @if (dessertDto.DessertId == Model.Instruction.DessertId)
+                        {
+                            <option value="@dessertDto.DessertId" selected="selected">
+                                #@dessertDto.DessertId @dessertDto.DessertName
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@dessertDto.DessertId">
+                                #@dessertDto.DessertId @dessertDto.DessertName
+                            </option>
+                        }
+                    }
+                </select>
             </div>
 
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label for="ChangeIngredientOption" style="font-weight: bold; color: #333;">Change Ingredient Option:</label>
+                <input name="ChangeIngredientOption" value="@Model.Instruction.ChangeIngredientOption"
+                       style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px;" />
+            </div>
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group" style="text-align: center;">
+                <input type="submit" value="Save" class="btn btn-primary"
+                       style="background-color: #4CAF50; color: white; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; border: none;" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div style="text-align: center; margin-top: 20px;">
+    <a asp-action="Index"
+       style="background-color: #ddd; color: black; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
+        Back to List
+    </a>
 </div>
 
 @section Scripts {

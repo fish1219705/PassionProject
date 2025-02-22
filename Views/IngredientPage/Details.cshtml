@@ -1,44 +1,58 @@
 ﻿@model PassionProject.Models.ViewModels.IngredientDetails
 
+<div style="text-align: center; margin-bottom: 20px;">
+    <a href="/IngredientPage/ConfirmDelete/@Model.Ingredient.IngredientId"
+       style="background-color: #f44336; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; margin-right: 10px;">
+        Delete
+    </a>
+    <a href="/IngredientPage/Edit/@Model.Ingredient.IngredientId"
+       style="background-color: #2196F3; color: white; padding: 10px 15px; text-decoration: none; border-radius: 5px; margin-right: 10px;">
+        Edit
+    </a>
+    <a href="/IngredientPage/List"
+       style="background-color: #ddd; color: black; padding: 10px 15px; text-decoration: none; border-radius: 5px;">
+        Back
+    </a>
+</div>
 
-<a href="/IngredientPage/ConfirmDelete/@Model.Ingredient.IngredientId">Delete</a>
-<a href="/IngredientPage/Edit/@Model.Ingredient.IngredientId">Edit</a>
-<a href="/IngredientPage/List">Back</a>
-<div class="row">
-    <div class="col-md-6">
-        <div>
-            <label>Name</label>
-            <div>@Model.Ingredient.IngredientName</div>
-        </div>
-        <div>
-            <label>Description</label>
-            <div>@Model.Ingredient.IngredientDescription</div>
-        </div>
+<h2 style="text-align: center; color: #4CAF50;">Ingredient Details</h2>
 
+<div class="row" style="display: flex; justify-content: space-around; padding: 20px;">
+    <div class="col-md-6" style="max-width: 400px; background-color: #f9f9f9; padding: 20px; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
+        <div style="margin-bottom: 20px;">
+            <label style="font-weight: bold; color: #333;">Name:</label>
+            <div style="padding: 8px; background-color: #fff; border-radius: 5px;">@Model.Ingredient.IngredientName</div>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label style="font-weight: bold; color: #333;">Description:</label>
+            <div style="padding: 8px; background-color: #fff; border-radius: 5px;">@Model.Ingredient.IngredientDescription</div>
+        </div>
     </div>
-    <div class="col-md-6">
-        <div>
-            <label>Desserts:</label>
-            <ul>
+
+    <div class="col-md-6" style="max-width: 400px; background-color: #f9f9f9; padding: 20px; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
+        <div style="margin-bottom: 20px;">
+            <label style="font-weight: bold; color: #333;">Desserts:</label>
+            <ul style="padding-left: 20px;">
                 @foreach (var DessertDto in Model.IngredientDesserts)
                 {
-                    <li>@DessertDto.DessertName</li>
-                   
+                    <li style="margin-bottom: 10px;">@DessertDto.DessertName</li>
                 }
             </ul>
-       
         </div>
-        <hr />
-        <div>
-            <h3>Instruction:</h3>
-            <div>
+
+        <hr style="border: 1px solid #ddd; margin-bottom: 20px;" />
+
+        <div style="margin-bottom: 20px;">
+            <label style="font-weight: bold; color: #333;">Instructions:</label>
+            <div style="padding-left: 20px;">
                 @foreach (var InstructionDto in Model.IngredientInstructions)
                 {
-
-                    <div> @InstructionDto.QtyOfIngredient @InstructionDto.DessertName (@InstructionDto.ChangeIngredientOption) </div>
+                    <div style="margin-bottom: 10px;">
+                        @InstructionDto.QtyOfIngredient @InstructionDto.DessertName (@InstructionDto.ChangeIngredientOption)
+                    </div>
                 }
-
             </div>
         </div>
     </div>
 </div>
+

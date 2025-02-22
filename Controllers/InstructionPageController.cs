@@ -56,7 +56,7 @@ namespace PassionProject.Controllers
             }
         }
 
-        //POST OrderItemPage/Update/{id}
+        //POST InstructionPage/Update/{id}
         [HttpPost]
         public async Task<IActionResult> Update(int id, InstructionDto InstructionDto)
         {
@@ -64,7 +64,7 @@ namespace PassionProject.Controllers
 
             if (response.Status == ServiceResponse.ServiceStatus.Updated)
             {
-                return RedirectToAction("List", "InstructionPage");
+                return RedirectToAction("List", "InstructionPage", new { id = id });
             }
             else
             {
@@ -112,71 +112,75 @@ namespace PassionProject.Controllers
 
         }
 
-        /*
-        // GET: OrderItemPage/Details/{id}
+        // GET: InstructionPage/Details/{id}
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            OrderItemDto? OrderItemDto = await _orderItemService.FindOrderItem(id);
+            InstructionDto? InstructionDto = await _instructionService.FindInstruction(id);
            
 
-            if (OrderItemDto == null)
+            if (InstructionDto == null)
             {
-                return View("Error", new ErrorViewModel() { Errors = ["Could not find OrderItem"] });
+                return View("Error", new ErrorViewModel() { Errors = ["Could not find Instruction"] });
             }
             else
             {
-                return View(OrderItemDto);
+                InstructionDetails InstructionInfo = new InstructionDetails()
+                {
+                    Instruction = InstructionDto
+                   
+                };
+                return View(InstructionInfo);
             }
         }
 
-        
 
 
-        // POST OrderItemPage/Add
-        [HttpPost]
-        public async Task<IActionResult> Add(OrderItemDto OrderItemDto)
-        {
-            ServiceResponse response = await _orderItemService.AddOrderItem(OrderItemDto);
 
-            if (response.Status == ServiceResponse.ServiceStatus.Created)
-            {
-                return RedirectToAction("Details", "OrderItemPage", new { id = response.CreatedId });
-            }
-            else
-            {
-                return View("Error", new ErrorViewModel() { Errors = response.Messages });
-            }
-        }
+       // //POST InstructionPage/Add
+       //[HttpPost]
+       // public async Task<IActionResult> Add(InstructionDto InstructionDto)
+       // {
+       //     ServiceResponse response = await _instructionService.AddInstruction(InstructionDto);
 
-        
+       //     if (response.Status == ServiceResponse.ServiceStatus.Created)
+       //     {
+       //         return RedirectToAction("Details", "InstructionPage", new { id = response.CreatedId });
+       //     }
+       //     else
+       //     {
+       //         return View("Error", new ErrorViewModel() { Errors = response.Messages });
+       //     }
+       // }
 
-        
 
-        //GET OrderItemPage/ConfirmDelete/{id}
+
+
+
+        //GET InstructionPage/ConfirmDelete/{id}
         [HttpGet]
         public async Task<IActionResult> ConfirmDelete(int id)
         {
-            OrderItemDto? OrderItemDto = await _orderItemService.FindOrderItem(id);
-            if (OrderItemDto == null)
+            InstructionDto? InstructionDto = await _instructionService.FindInstruction(id);
+            if (InstructionDto == null)
             {
                 return View("Error");
             }
             else
             {
-                return View(OrderItemDto);
+                return View(InstructionDto);
             }
         }
 
-        //POST OrderItemPage/Delete/{id}
+        //POST InstructionPage/Delete/{id}
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            ServiceResponse response = await _orderItemService.DeleteOrderItem(id);
+            ServiceResponse response = await _instructionService.DeleteInstruction(id);
 
             if (response.Status == ServiceResponse.ServiceStatus.Deleted)
             {
-                return RedirectToAction("List", "OrderItemPage");
+                return RedirectToAction("List", "InstructionPage");
             }
             else
             {
@@ -185,7 +189,7 @@ namespace PassionProject.Controllers
         }
 
 
-        */
+
     }
 }
 

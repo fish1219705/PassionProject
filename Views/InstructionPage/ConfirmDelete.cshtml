@@ -1,9 +1,21 @@
 ﻿@model PassionProject.Models.InstructionDto
 
-<h1>Confirm Delete?</h1>
-<p>@Model.InstructionId</p>
+<h1 style="text-align: center; color: #f44336;">Confirm Delete?</h1>
+<p style="text-align: center; font-size: 18px; color: #333;">
+    The instruction of <strong>"@Model.IngredientName"</strong> for <strong>"@Model.DessertName"</strong>
+</p>
 
-<form method="POST" action="/InstructionPage/Delete/@Model.InstructionId">
-    <input style="background:red; color:white;" type="submit" value="Confirm Delete" />
+<div style="text-align: center; margin-top: 20px;">
+    <form method="POST" action="/InstructionPage/Delete/@Model.InstructionId" style="display: inline;">
+        <input type="submit" value="Confirm Delete"
+               style="background-color: #f44336; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer;" />
+    </form>
+</div>
 
-</form>
+<div style="text-align: center; margin-top: 20px;">
+    <a href="/InstructionPage/List"
+       style="background-color: #ddd; color: black; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-size: 16px;">
+        Cancel
+    </a>
+</div>
+
