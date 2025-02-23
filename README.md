@@ -1,14 +1,16 @@
 # PassionProject
 
 ## 🍰 Healthy Dessert Content Management System (CMS)
+##  Purely Sweet
+
 ### Overview
 This Healthy Dessert Content Management System (CMS) is designed for dessert lovers who want to enjoy sweet treats without compromising their health. Our platform provides a collection of non-sugar, non-fat, dairy-free, and vegetarian dessert options, helping users make informed dietary choices.
 
-🎯 Who is this for?
+#### 🎯 Who is this for?
 Tommie – A health-conscious dessert lover who can browse desserts, check ingredient details, and read real customer reviews to ensure the treats meet her dietary preferences.
 Peiyu (Admin) – Manages the desserts by updating ingredient information, adding new desserts, and moderating customer reviews to help others make informed choices.
 
-#### Features:
+### Features:
 ✅ Healthy Dessert Collection – Browse desserts with dietary labels like no sugar, dairy-free, keto, and vegetarian-friendly.
 ✅ Ingredient Tracking – View detailed ingredient lists, including health-conscious alternatives like almond flour and stevia.
 ✅ Real Customer Reviews – Users can read authentic reviews from others who have tried the desserts.
@@ -17,7 +19,7 @@ Peiyu (Admin) – Manages the desserts by updating ingredient information, addin
 Guest Users can browse desserts, ingredients, reviews and instructions but cannot modify content.
 Admin Users (Peiyu & Team) can add, update, and delete desserts, ingredients, instructions, and moderate reviews.
 
-#### The system consists of four core tables:
+### The system consists of four core tables:
 Desserts 🍰 – Stores dessert names, descriptions, and health features (e.g., keto-friendly, no dairy, no sugar).
 Ingredients 🥄 – Lists all ingredients, indicating which are healthy-friendly (e.g., almond flour, stevia, coconut milk).
 Reviews ⭐ – Captures real customer feedback on each dessert (one-to-many relationship with Desserts).
