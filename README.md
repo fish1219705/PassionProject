@@ -30,7 +30,7 @@ Admin Users (Peiyu & Team) can add, update, and delete desserts, ingredients, in
 3. Instructions ↔ Desserts (Many-to-One)
 4. Instructions ↔ Ingredients (Many-to-One)
 
-#### User Roles:
+### User Roles:
 - 🔹 Guest Users (Tommie & Others) – Can view desserts, ingredients, instructions, and reviews but cannot add, edit, or delete content.
 - 🔹 Admin Users (Peiyu & Team) – Have full control to add, update, and delete desserts, ingredients, instructions, and reviews.
 
