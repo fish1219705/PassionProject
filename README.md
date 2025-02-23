@@ -1,9 +1,9 @@
 # PassionProject
 
-## 🍰 Healthy Dessert Content Management System (CMS)
+## 🍰 Healthy Dessert Management System (CMS)
 
 ### Overview
-This Healthy Dessert Content Management System (CMS) is designed for dessert lovers who want to enjoy sweet treats without compromising their health. Our platform provides a collection of non-sugar, non-fat, dairy-free, and vegetarian dessert options, helping users make informed dietary choices.
+This Healthy Dessert Management System is designed for dessert lovers who want to enjoy sweet treats without compromising their health. Our platform provides a collection of non-sugar, non-fat, dairy-free, and vegetarian dessert options, helping users make informed dietary choices.
 
 #### 🎯 Who is this for?
 - Tommie – A health-conscious dessert lover who can browse desserts, check ingredient details, and read real customer reviews to ensure the treats meet her dietary preferences.
