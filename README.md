@@ -43,7 +43,7 @@ Admin Users (Peiyu & Team) can add, update, and delete desserts, ingredients, in
 - Authentication System (Identity Framework or Role-Based Authentication)
 
 ### Future Improvements
-- 🔹 📸 Image Uploads for Reviews (Top Priority) – Allow customers to upload real photos of the desserts they purchased, giving future buyers a more authentic and trustworthy preview of the products. This feature will enhance transparency and improve user engagement.
+- 🔹 📸 Image Uploads for Reviews (Top Priority) – Allow admin to upload real photos of the desserts previous customers purchased, giving future buyers a more authentic and trustworthy preview of the products. This feature will enhance transparency and improve user engagement.
 - 🔹 ⭐ Review Enhancements – Implement a 5-star rating system alongside written reviews for more intuitive feedback and better decision-making.
 - 🔹 🔍 Advanced Filtering – Enable users to filter desserts based on dietary preferences (e.g., "Only show keto desserts" or "No dairy options") for a personalized browsing experience.
 
