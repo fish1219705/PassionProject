@@ -39,7 +39,7 @@ Admin Users (Peiyu & Team) can add, update, and delete desserts, ingredients, in
 - Entity Framework Core
 - ASP.NET Built-in Database (or SQLite in-memory storage)
 - LINQ
-- Bootstrap (for styling, optional)
+- Bootstrap (for styling)
 - Authentication System (Identity Framework or Role-Based Authentication)
 
 ### Future Improvements
