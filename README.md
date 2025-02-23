@@ -2,7 +2,7 @@
 
 ## 🍰 Healthy Dessert Content Management System (CMS)
 
-### Overview
+### Overview of *Purely Sweet*
 This Healthy Dessert Content Management System (CMS) is designed for dessert lovers who want to enjoy sweet treats without compromising their health. Our platform provides a collection of non-sugar, non-fat, dairy-free, and vegetarian dessert options, helping users make informed dietary choices.
 
 #### 🎯 Who is this for?
@@ -24,23 +24,23 @@ Admin Users (Peiyu & Team) can add, update, and delete desserts, ingredients, in
 3. Reviews ⭐ – Captures real customer feedback on each dessert (one-to-many relationship with Desserts).
 4. Instructions 📜 – Step-by-step preparation guide, referencing both desserts and ingredients (many-to-one relationships).
 
-- Relationships:
+#### Relationships:
 1. Desserts ↔ Ingredients (Many-to-Many)
 2. Desserts ↔ Reviews (One-to-Many)
 3. Instructions ↔ Desserts (Many-to-One)
 4. Instructions ↔ Ingredients (Many-to-One)
 
-- User Roles:
+#### User Roles:
 - 🔹 Guest Users (Tommie & Others) – Can view desserts, ingredients, instructions, and reviews but cannot add, edit, or delete content.
 - 🔹 Admin Users (Peiyu & Team) – Have full control to add, update, and delete desserts, ingredients, instructions, and reviews.
 
 ### Technologies Used
-C# / ASP.NET Core MVC
-Entity Framework Core
-ASP.NET Built-in Database (or SQLite in-memory storage)
-LINQ
-Bootstrap (for styling, optional)
-Authentication System (Identity Framework or Role-Based Authentication)
+- C# / ASP.NET Core MVC
+- Entity Framework Core
+- ASP.NET Built-in Database (or SQLite in-memory storage)
+- LINQ
+- Bootstrap (for styling, optional)
+- Authentication System (Identity Framework or Role-Based Authentication)
 
 ### Future Improvements
 - 🔹 📸 Image Uploads for Reviews (Top Priority) – Allow customers to upload real photos of the desserts they purchased, giving future buyers a more authentic and trustworthy preview of the products. This feature will enhance transparency and improve user engagement.
