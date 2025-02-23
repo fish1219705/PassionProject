@@ -35,11 +35,10 @@ Admin Users (Peiyu & Team) can add, update, and delete desserts, ingredients, in
 - 🔹 Admin Users (Peiyu & Team) – Have full control to add, update, and delete desserts, ingredients, instructions, and reviews.
 
 ### Technologies Used
-- C# / ASP.NET Core MVC
+- C#
+- ASP.NET Core MVC
 - Entity Framework Core
-- ASP.NET Built-in Database (or SQLite in-memory storage)
 - LINQ
-- Bootstrap (for styling)
 - Authentication System (Identity Framework or Role-Based Authentication)
 
 ### Future Improvements
