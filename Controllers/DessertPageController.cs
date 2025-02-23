@@ -3,6 +3,8 @@ using PassionProject.Interfaces;
 using PassionProject.Models;
 using PassionProject.Models.ViewModels;
 using PassionProject.Services;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace PassionProject.Controllers
 {
@@ -67,6 +69,7 @@ namespace PassionProject.Controllers
             }
         }
         // GET DessertPage/New
+        [Authorize]
         public ActionResult New()
         {
             return View();
@@ -74,6 +77,7 @@ namespace PassionProject.Controllers
 
         // POST DessertPage/Add
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Add(DessertDto DessertDto)
         {
             ServiceResponse response = await _dessertService.AddDessert(DessertDto);
@@ -90,6 +94,7 @@ namespace PassionProject.Controllers
 
         //GET DessertPage/Edit/{id}
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             DessertDto? DessertDto = await _dessertService.FindDessert(id);
@@ -105,6 +110,7 @@ namespace PassionProject.Controllers
 
         //POST DessertPage/Update/{id}
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Update(int id, DessertDto DessertDto)
         {
             ServiceResponse response = await _dessertService.UpdateDessert(DessertDto);
@@ -121,6 +127,7 @@ namespace PassionProject.Controllers
 
         //GET DessertPage/ConfirmDelete/{id}
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> ConfirmDelete(int id)
         {
             DessertDto? DessertDto = await _dessertService.FindDessert(id);
@@ -136,6 +143,7 @@ namespace PassionProject.Controllers
 
         //POST DessertPage/Delete/{id}
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             ServiceResponse response = await _dessertService.DeleteDessert(id);
@@ -152,6 +160,7 @@ namespace PassionProject.Controllers
         //POST DessertPage/LinkToIngredient
         //DATA: ingredientId={ingredientId}&dessertId={dessertId}
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> LinkToIngredient([FromForm] int dessertId, [FromForm] int ingredientId)
         {
             await _ingredientService.LinkIngredientToDessert(ingredientId, dessertId);
@@ -162,6 +171,7 @@ namespace PassionProject.Controllers
         //POST DessertPage/UnlinkFromIngredient
         //DATA: ingredientId={ingredientId}&dessertId={dessertId}
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> UnlinkFromIngredient([FromForm] int dessertId, [FromForm] int ingredientId)
         {
             await _ingredientService.UnlinkIngredientFromDessert(ingredientId, dessertId);

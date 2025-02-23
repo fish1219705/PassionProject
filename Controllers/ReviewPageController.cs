@@ -3,6 +3,7 @@ using PassionProject.Models;
 using PassionProject.Models.ViewModels;
 using PassionProject.Interfaces;
 using PassionProject.Services;
+using Microsoft.AspNetCore.Authorization; 
 
 namespace PassionProject.Controllers
 {
@@ -54,6 +55,7 @@ namespace PassionProject.Controllers
         }
 
         // GET ReviewPage/New
+        [Authorize]
         public ActionResult New()
         {
             return View();
@@ -62,6 +64,7 @@ namespace PassionProject.Controllers
 
         // POST ReviewPage/Add
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Add(ReviewDto ReviewDto)
         {
             ServiceResponse response = await _reviewService.AddReview(ReviewDto);
@@ -78,6 +81,7 @@ namespace PassionProject.Controllers
 
         //GET ReviewPage/Edit/{id}
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             ReviewDto? ReviewDto = await _reviewService.FindReview(id);
@@ -93,6 +97,7 @@ namespace PassionProject.Controllers
 
         //POST ReviewPage/Update/{id}
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Update(int id, ReviewDto ReviewDto)
         {
             ServiceResponse response = await _reviewService.UpdateReview(ReviewDto);
@@ -109,6 +114,7 @@ namespace PassionProject.Controllers
 
         //GET ReviewPage/ConfirmDelete/{id}
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> ConfirmDelete(int id)
         {
             // Views/ReviewPage/ConfirmDelete.cshtml
@@ -120,6 +126,7 @@ namespace PassionProject.Controllers
 
         //POST ReviewPage/Delete/{id}
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             ServiceResponse response = await _reviewService.DeleteReview(id);

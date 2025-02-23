@@ -11,6 +11,7 @@ using PassionProject.Interfaces;
 using PassionProject.Models;
 using PassionProject.Services;
 using PassionProject;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PassionProject.Controllers
 {
@@ -97,6 +98,7 @@ namespace PassionProject.Controllers
         /// Response Code: 204 No Content
         /// </example>
         [HttpPut(template: "Update/{id}")]
+        [Authorize]
         public async Task<ActionResult> UpdateIngredient(int id, IngredientDto IngredientDto)
         {
             // {id} in URL must match IngredientId in POST Body
@@ -142,6 +144,7 @@ namespace PassionProject.Controllers
         /// Response Headers: Location: api/Ingredient/Find/{IngredientId}
         /// </example>
         [HttpPost(template: "Add")]
+        [Authorize]
         public async Task<ActionResult<Ingredient>> AddIngredient(IngredientDto IngredientDto)
         {
             ServiceResponse response = await _ingredientService.AddIngredient(IngredientDto);
@@ -174,6 +177,7 @@ namespace PassionProject.Controllers
         /// Response Code: 204 No Content
         /// </example>
         [HttpDelete("Delete/{id}")]
+        [Authorize]
         public async Task<ActionResult> DeleteIngredient(int id)
         {
             ServiceResponse response = await _ingredientService.DeleteIngredient(id);
@@ -226,6 +230,7 @@ namespace PassionProject.Controllers
         /// Response Code: 204 No Content
         /// </example>
         [HttpDelete("Unlink")]
+        [Authorize]
         public async Task<ActionResult> Unlink(int ingredientId, int dessertId)
         {
             ServiceResponse response = await _ingredientService.UnlinkIngredientFromDessert(ingredientId, dessertId);
@@ -259,6 +264,7 @@ namespace PassionProject.Controllers
         /// Response Code: 204 No Content
         /// </example>
         [HttpPost("Link")]
+        [Authorize]
         public async Task<ActionResult> Link(int ingredientId, int dessertId)
         {
             ServiceResponse response = await _ingredientService.LinkIngredientToDessert(ingredientId, dessertId);

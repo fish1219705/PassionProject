@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PassionProject.Data;
 using PassionProject.Models;
 using PassionProject.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PassionProject.Controllers
 {
@@ -87,12 +88,13 @@ namespace PassionProject.Controllers
         /// </returns>
         /// <example>
         /// PUT: api/Dessert/Update/2
-        /// Request Headers: Content-Type: application/json
+        /// Request Headers: Content-Type: application/json, cookie: .AspNetCore.Identity.Application={token}
         /// Request Body: {DessertDto}
         /// ->
         /// Response Code: 204 No Content
         /// </example>
         [HttpPut(template:"Update/{id}")]
+        [Authorize]
         public async Task<ActionResult> UpdateDessert(int id, DessertDto DessertDto)
         {
                // {id} in URL must match DessertId in POST Body
@@ -131,14 +133,14 @@ namespace PassionProject.Controllers
         /// </returns>
         /// <example>
         /// POST: api/Dessert/Add
-        /// Request Headers: Content-Type: application/json
+        /// Request Headers: Content-Type: application/json, cookie: .AspNetCore.Identity.Application={token}
         /// Request Body: {DessertDto}
         /// ->
         /// Response Code: 201 Created
         /// Response Headers: Location: api/Dessert/Find/{DessertId}
         /// </example>
-
         [HttpPost(template:"Add")]
+        [Authorize]
             public async Task<ActionResult<Dessert>> AddDessert(DessertDto DessertDto)
             {
                 ServiceResponse response = await _dessertService.AddDessert(DessertDto);
@@ -167,10 +169,12 @@ namespace PassionProject.Controllers
         /// </returns>
         /// <example>
         /// DELETE: api/Dessert/Delete/2
+        /// Headers: cookie: .AspNetCore.Identity.Application={token}
         /// ->
         /// Response Code: 204 No Content
         /// </example>
         [HttpDelete("Delete/{id}")]
+        [Authorize]
         public async Task<ActionResult> DeleteDessert(int id)
         {
             ServiceResponse response = await _dessertService.DeleteDessert(id);
@@ -208,7 +212,7 @@ namespace PassionProject.Controllers
             // return 200 OK with DessertDtos
             return Ok(DessertDtos);
         }
-  
+
         /// <summary>
         /// Unlinks a dessert from a ingredient
         /// </summary>
@@ -217,14 +221,18 @@ namespace PassionProject.Controllers
         /// <returns>
         /// 204 No Content
         /// or
+        /// 302 Redirect (/Identity/Account/Login)
+        /// or
         /// 404 Not Found
         /// </returns>
         /// <example>
         /// Delete: api/Dessert/Unlink?DessertId=4&IngredientId=1
+        /// Headers: cookie: .AspNetCore.Identity.Application={token}
         /// ->
         /// Response Code: 204 No Content
         /// </example>
         [HttpDelete("Unlink")]
+        [Authorize]
         public async Task<ActionResult> Unlink(int dessertId, int ingredientId)
         {
             ServiceResponse response = await _dessertService.UnlinkDessertFromIngredient(dessertId, ingredientId);
@@ -250,14 +258,18 @@ namespace PassionProject.Controllers
         /// <returns>
         /// 204 No Content
         /// or
+        /// 302 Redirect (/Identity/Account/Login)
+        /// or
         /// 404 Not Found
         /// </returns>
         /// <example>
         /// Post: api/Dessert/Link?DessertId=4&IngredientId=1
+        /// Headers: cookie: .AspNetCore.Identity.Application={token}
         /// ->
         /// Response Code: 204 No Content
         /// </example>
         [HttpPost("Link")]
+        [Authorize]
         public async Task<ActionResult> Link(int dessertId, int ingredientId)
         {
             ServiceResponse response = await _dessertService.LinkDessertToIngredient(dessertId, ingredientId);

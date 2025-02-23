@@ -3,6 +3,7 @@ using PassionProject.Interfaces;
 using PassionProject.Models.ViewModels;
 using PassionProject.Models;
 using PassionProject.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PassionProject.Controllers
 {
@@ -34,6 +35,7 @@ namespace PassionProject.Controllers
 
         //GET InstructionPage/Edit/{id}
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             InstructionDto? InstructionDto = await _instructionService.FindInstruction(id);
@@ -58,6 +60,7 @@ namespace PassionProject.Controllers
 
         //POST InstructionPage/Update/{id}
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Update(int id, InstructionDto InstructionDto)
         {
             ServiceResponse response = await _instructionService.UpdateInstruction(InstructionDto);
@@ -73,6 +76,7 @@ namespace PassionProject.Controllers
         }
 
         // GET InstructionPage/New
+        [Authorize]
         public async Task<IActionResult> New()
         {
 
@@ -93,6 +97,7 @@ namespace PassionProject.Controllers
 
         // POST InstructionPage/Add
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Add(InstructionDto InstructionDto)
         {
             ServiceResponse response = await _instructionService.AddInstruction(InstructionDto);
@@ -159,6 +164,7 @@ namespace PassionProject.Controllers
 
         //GET InstructionPage/ConfirmDelete/{id}
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> ConfirmDelete(int id)
         {
             InstructionDto? InstructionDto = await _instructionService.FindInstruction(id);
@@ -174,6 +180,7 @@ namespace PassionProject.Controllers
 
         //POST InstructionPage/Delete/{id}
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             ServiceResponse response = await _instructionService.DeleteInstruction(id);

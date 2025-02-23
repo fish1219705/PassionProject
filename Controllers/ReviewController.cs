@@ -9,6 +9,7 @@ using PassionProject.Data;
 using PassionProject.Interfaces;
 using PassionProject.Models;
 using PassionProject.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PassionProject.Controllers
 {
@@ -87,6 +88,7 @@ namespace PassionProject.Controllers
         /// 204 No Content
         /// </returns>
         [HttpPut(template: "Update/{id}")]
+        [Authorize]
         public async Task<ActionResult> UpdateReview(int id, ReviewDto reviewDto)
         {
             // {id} in URL must match ReviewId in POST Body
@@ -129,6 +131,7 @@ namespace PassionProject.Controllers
         /// POST api/Review/Add
         /// </example>
         [HttpPost(template: "Add")]
+        [Authorize]
         public async Task<ActionResult<Review>> AddReview(ReviewDto reviewDto)
         {
             ServiceResponse response = await _reviewService.AddReview(reviewDto);
@@ -156,6 +159,7 @@ namespace PassionProject.Controllers
         /// 404 Not Found
         /// </returns>
         [HttpDelete("Delete/{id}")]
+        [Authorize]
         public async Task<ActionResult> DeleteReview(int id)
         {
             ServiceResponse response = await _reviewService.DeleteReview(id);
@@ -181,6 +185,49 @@ namespace PassionProject.Controllers
             IEnumerable<ReviewDto> reviewDtos = await _reviewService.ListReviewsForDessert(id);
             // return 200 OK with ReviewDtos
             return Ok(reviewDtos);
+        }
+
+        /// <summary>
+        /// Receives a review picture and saves it to /wwwroot/images/reviews/{id}{extension}
+        /// </summary>
+        /// <param name="id">The review to update an image for</param>
+        /// <param name="ReviewPic">The picture to change to</param>
+        /// <returns>
+        /// 200 OK
+        /// or
+        /// 404 NOT FOUND
+        /// or 
+        /// 500 BAD REQUEST
+        /// </returns>
+        /// <example>
+        /// PUT : api/Review/UploadReviewPic/2
+        /// HEADERS: Content-Type: Multi-part/form-data, Cookie: .AspNetCore.Identity.Application={token}
+        /// FORM DATA:
+        /// ------boundary
+        /// Content-Disposition: form-data; name="ReviewPic"; filename="myreviewpic.jpg"
+        /// Content-Type: image/jpeg
+        /// </example>
+        /// <example>
+        /// curl "https://localhost:xx/api/Review/UploadReviewPic/1" -H "Cookie: .AspNetCore.Identity.Application={token}" -X "PUT" -F ReviewPic=@myreviewpic.jpg
+        /// </example>
+        [HttpPut(template: "UploadReviewPic/{id}")]
+        [Authorize]
+        public async Task<IActionResult> UploadReviewPic(int id, IFormFile ReviewPic)
+        {
+
+            ServiceResponse response = await _reviewService.UpdateReviewImage(id, ReviewPic);
+
+            if (response.Status == ServiceResponse.ServiceStatus.NotFound)
+            {
+                return NotFound();
+            }
+            else if (response.Status == ServiceResponse.ServiceStatus.Error)
+            {
+                return StatusCode(500, response.Messages);
+            }
+
+            return Ok();
+
         }
 
     }

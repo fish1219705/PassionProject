@@ -25,6 +25,13 @@
             @Html.DisplayFor(model => model.Review.ReviewContent)
         </dd>
 
+   @*      <div>
+            @if (Model.Review.HasReviewPic)
+            {
+                <img style="width:150px; height:auto;" src="@Model.Review.ReviewImagePath" />
+            }
+        </div> *@
+
         <dt class="col-sm-3" style="font-weight: bold; color: #333;">
             @Html.DisplayNameFor(model => model.Review.ReviewUser)
         </dt>

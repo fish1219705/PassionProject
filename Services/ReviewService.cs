@@ -19,27 +19,34 @@ namespace PassionProject.Services
         public async Task<IEnumerable<ReviewDto>> ListReviews()
         {
             // include will join the (r)eview with 1 dessert
-            List<Review> reviews = await _context.Reviews
+            List<Review> Reviews = await _context.Reviews
                 .Include(r => r.Dessert)
                 .ToListAsync();
             // empty list of data transfer object ReviewDto
-            List<ReviewDto> reviewDtos = new List<ReviewDto>();
+            List<ReviewDto> ReviewDtos = new List<ReviewDto>();
             // foreach Review record in database
-            foreach (Review review in reviews)
+            foreach (Review Review in Reviews)
             {
-                reviewDtos.Add(new ReviewDto()
+                ReviewDto ReviewDto = new ReviewDto()
                 {
-                    ReviewId = review.ReviewId,
-                    ReviewNumber = review.ReviewNumber,
-                    ReviewContent = review.ReviewContent,
-                    ReviewTime = review.ReviewTime,
-                    ReviewUser = review.ReviewUser,
-                    DessertId = review.DessertId,
-                    DessertName = review.Dessert.DessertName
-                });
+                    ReviewId = Review.ReviewId,
+                    ReviewNumber = Review.ReviewNumber,
+                    ReviewContent = Review.ReviewContent,
+                    ReviewTime = Review.ReviewTime,
+                    ReviewUser = Review.ReviewUser,
+                    DessertId = Review.DessertId,
+                    DessertName = Review.Dessert.DessertName
+                };
+
+                if (Review.HasPic)
+                {
+                    ReviewDto.ReviewImagePath = $"/images/reviews/{Review.ReviewId}{Review.PicExtension}";
+                }
+                // create new instance of ReviewDto, add to list
+                ReviewDtos.Add(ReviewDto);
             }
             // return ReviewDtos
-            return reviewDtos;
+            return ReviewDtos;
 
         }
 
@@ -64,9 +71,14 @@ namespace PassionProject.Services
                 ReviewContent = review.ReviewContent,
                 ReviewTime = review.ReviewTime,
                 ReviewUser = review.ReviewUser,
+                HasReviewPic = review.HasPic,
                 DessertId = review.DessertId,
                 DessertName = review.Dessert.DessertName
             };
+            if (review.HasPic)
+            {
+                reviewDto.ReviewImagePath = $"/images/reviews/{review.ReviewId}{review.PicExtension}";
+            }
             return reviewDto;
 
         }
@@ -96,6 +108,10 @@ namespace PassionProject.Services
             };
             // flags that the object has changed
             _context.Entry(review).State = EntityState.Modified;
+            // handled by another method
+            _context.Entry(review).Property(r => r.HasPic).IsModified = false;
+            _context.Entry(review).Property(r => r.PicExtension).IsModified = false;
+
 
             try
             {
@@ -225,6 +241,91 @@ namespace PassionProject.Services
 
             }
 
+        public async Task<ServiceResponse> UpdateReviewImage(int id, IFormFile ReviewPic)
+        {
+            ServiceResponse response = new();
+
+            Review? Review = await _context.Reviews.FindAsync(id);
+            if (Review == null)
+            {
+                response.Status = ServiceResponse.ServiceStatus.NotFound;
+                response.Messages.Add($"Review {id} not found");
+                return response;
+            }
+
+            if (ReviewPic.Length > 0)
+            {
+
+
+                // remove old picture if exists
+                if (Review.HasPic)
+                {
+                    string OldFileName = $"{Review.ReviewId}{Review.PicExtension}";
+                    string OldFilePath = Path.Combine("wwwroot/images/reviews/", OldFileName);
+                    if (File.Exists(OldFilePath))
+                    {
+                        File.Delete(OldFilePath);
+                    }
+
+                }
+
+
+                // establish valid file types (can be changed to other file extensions if desired!)
+                List<string> Extensions = new List<string> { ".jpeg", ".jpg", ".png", ".gif" };
+                string ReviewPicExtension = Path.GetExtension(ReviewPic.FileName).ToLowerInvariant();
+                if (!Extensions.Contains(ReviewPicExtension))
+                {
+                    response.Messages.Add($"{ReviewPicExtension} is not a valid file extension");
+                    response.Status = ServiceResponse.ServiceStatus.Error;
+                    return response;
+                }
+
+                string FileName = $"{id}{ReviewPicExtension}";
+                string FilePath = Path.Combine("wwwroot/images/reviews/", FileName);
+
+                using (var targetStream = File.Create(FilePath))
+                {
+                    ReviewPic.CopyTo(targetStream);
+                }
+
+                // check if file was uploaded
+                if (File.Exists(FilePath))
+                {
+                    Review.PicExtension = ReviewPicExtension;
+                    Review.HasPic = true;
+
+                    _context.Entry(Review).State = EntityState.Modified;
+
+                    try
+                    {
+                        // SQL Equivalent: Update Reviews set HasPic=True, PicExtension={ext} where ReviewId={id}
+
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        response.Status = ServiceResponse.ServiceStatus.Error;
+                        response.Messages.Add("An error occurred updating the record");
+
+                        return response;
+                    }
+                }
+
+            }
+            else
+            {
+                response.Messages.Add("No File Content");
+                response.Status = ServiceResponse.ServiceStatus.Error;
+                return response;
+            }
+
+            response.Status = ServiceResponse.ServiceStatus.Updated;
+
+
+
+            return response;
         }
+
+    }
     }
 

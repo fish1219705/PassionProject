@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PassionProject.Data;
 using PassionProject.Models;
 using PassionProject.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PassionProject.Controllers
 {
@@ -89,6 +90,7 @@ namespace PassionProject.Controllers
         /// 
         /// </example>
         [HttpPut(template: "Update/{id}")]
+        [Authorize]
         public async Task<ActionResult> UpdateInstruction(int id, InstructionDto instructionDto)
         {
             // {id} in URL must match OrderItemId in POST Body
@@ -128,6 +130,7 @@ namespace PassionProject.Controllers
         /// </example>
 
         [HttpPost(template: "Add")]
+        [Authorize]
         public async Task<ActionResult<Instruction>> AddInstruction(InstructionDto instructionDto)
         {
             ServiceResponse response = await _instructionService.AddInstruction(instructionDto);
@@ -159,6 +162,7 @@ namespace PassionProject.Controllers
         /// 
         /// </example>
         [HttpDelete("/Delete/{id}")]
+        [Authorize]
         public async Task<ActionResult> DeleteInstruction(int id)
         {
             ServiceResponse response = await _instructionService.DeleteInstruction(id);

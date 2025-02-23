@@ -20,6 +20,11 @@
                 #@Review.ReviewNumber
             </a>
             : @Review.ReviewContent - <span style="font-style: italic;">@Review.DessertName</span>
+
+            @if (Review.HasReviewPic)
+            {
+                <img style="width:150px; height:auto;" src="@Review.ReviewImagePath" />
+            }
         </div>
     }
 </div>
