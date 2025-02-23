@@ -13,7 +13,7 @@ This Healthy Dessert Content Management System (CMS) is designed for dessert lov
 - ✅ Healthy Dessert Collection – Browse desserts with dietary labels like no sugar, dairy-free, keto, and vegetarian-friendly.
 - ✅ Ingredient Tracking – View detailed ingredient lists, including health-conscious alternatives like almond flour and stevia.
 - ✅ Real Customer Reviews – Users can read authentic reviews from others who have tried the desserts.
-- ✅ Enhanced Instructions (Beyond MVP) – Each dessert's instructions now specify the exact quantity of each ingredient, ensuring clear measurements. Additionally, a "Change Ingredient Option" field allows customers to customize their dessert by substituting ingredients based on their preferences.
+- ✅ Enhanced Instructions (Beyond MVP) – Each dessert's instructions now specify the exact quantity of each ingredient, ensuring clear measurements. Additionally, a "Change Ingredient Option" field allows customers to see if possible to customize their dessert by substituting ingredients based on their preferences.
 - ✅ Role-Based Access Control - 
 Guest Users can browse desserts, ingredients, reviews and instructions but cannot modify content.
 Admin Users (Peiyu & Team) can add, update, and delete desserts, ingredients, instructions, and moderate reviews.
