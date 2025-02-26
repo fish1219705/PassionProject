@@ -31,8 +31,8 @@ Admin Users (Peiyu & Team) can add, update, and delete desserts, ingredients, in
 4. Instructions ↔ Ingredients (Many-to-One)
 
 ### User Roles:
-- 🔹 Guest Users (Tommie & Others) – Can view desserts, ingredients, instructions, and reviews but cannot add, edit, or delete content.
-- 🔹 Admin Users (Peiyu & Team) – Have full control to add, update, and delete desserts, ingredients, instructions, and reviews.
+-  Guest Users (Tommie & Others) – Can view desserts, ingredients, instructions, and reviews but cannot add, edit, or delete content.
+-  Admin Users (Peiyu & Team) – Have full control to add, update, and delete desserts, ingredients, instructions, and reviews.
 
 ### Technologies Used
 - C#
@@ -42,9 +42,9 @@ Admin Users (Peiyu & Team) can add, update, and delete desserts, ingredients, in
 - Authentication System (Identity Framework or Role-Based Authentication)
 
 ### Future Improvements
-- 🔹 📸 Image Uploads for Reviews (Top Priority) – Allow admin to upload real photos of the desserts previous customers purchased, giving future buyers a more authentic and trustworthy preview of the products. This feature will enhance transparency and improve user engagement.
-- 🔹 ⭐ Review Enhancements – Implement a 5-star rating system alongside written reviews for more intuitive feedback and better decision-making.
-- 🔹 🔍 Advanced Filtering – Enable users to filter desserts based on dietary preferences (e.g., "Only show keto desserts" or "No dairy options") for a personalized browsing experience.
+-  📸 Image Uploads for Reviews (Top Priority) – Allow admin to upload real photos of the desserts previous customers purchased, giving future buyers a more authentic and trustworthy preview of the products. This feature will enhance transparency and improve user engagement.
+-  ⭐ Review Enhancements – Implement a 5-star rating system alongside written reviews for more intuitive feedback and better decision-making.
+-  🔍 Advanced Filtering – Enable users to filter desserts based on dietary preferences (e.g., "Only show keto desserts" or "No dairy options") for a personalized browsing experience.
 
 
 
