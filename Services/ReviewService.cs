@@ -2,7 +2,10 @@
 using PassionProject.Models;
 using PassionProject.Data;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System;
+using System.IO;
+using NuGet.Packaging.Signing;
 
 
 namespace PassionProject.Services
@@ -35,7 +38,8 @@ namespace PassionProject.Services
                     ReviewTime = Review.ReviewTime,
                     ReviewUser = Review.ReviewUser,
                     DessertId = Review.DessertId,
-                    DessertName = Review.Dessert.DessertName
+                    DessertName = Review.Dessert.DessertName,
+                    HasReviewPic = Review.HasPic
                 };
 
                 if (Review.HasPic)
@@ -86,7 +90,9 @@ namespace PassionProject.Services
         public async Task<ServiceResponse> UpdateReview(ReviewDto reviewDto)
         {
             ServiceResponse serviceResponse = new();
+
             Dessert? dessert = await _context.Desserts.FindAsync(reviewDto.DessertId);
+            Review? review = await _context.Reviews.FindAsync(reviewDto.ReviewId);
 
             // Posted data must link to valid entity
             if (dessert == null)
@@ -95,17 +101,35 @@ namespace PassionProject.Services
                 //404 Not Found
                 return serviceResponse;
             }
+
             // Create instance of Review
-            Review review = new Review()
+            if (review == null)
             {
-                ReviewId = Convert.ToInt32(reviewDto.ReviewId),
-                ReviewNumber = reviewDto.ReviewNumber,
-                ReviewContent = reviewDto.ReviewContent,
-                ReviewTime = reviewDto.ReviewTime,
-                ReviewUser = reviewDto.ReviewUser,
-                Dessert = dessert,
-                DessertId = reviewDto.DessertId
-            };
+                serviceResponse.Messages.Add("Review could not be found");
+                serviceResponse.Status = ServiceResponse.ServiceStatus.Error;
+                return serviceResponse;
+            }
+
+            review.ReviewNumber = reviewDto.ReviewNumber;
+            review.ReviewContent = reviewDto.ReviewContent;
+            review.ReviewTime = reviewDto.ReviewTime;
+            review.ReviewUser = reviewDto.ReviewUser;
+            review.Dessert = dessert;
+            review.DessertId = reviewDto.DessertId;
+
+
+            //Review review = new Review()
+            //{
+
+            //    ReviewNumber =
+            //    ReviewContent = reviewDto.ReviewContent,
+            //    ReviewTime = reviewDto.ReviewTime,
+            //    ReviewUser = reviewDto.ReviewUser,
+            //    Dessert = dessert;
+            //    DessertId = reviewDto.DessertId
+
+            //};
+
             // flags that the object has changed
             _context.Entry(review).State = EntityState.Modified;
             // handled by another method

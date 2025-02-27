@@ -1,6 +1,6 @@
 ﻿@model PassionProject.Models.ReviewDto
 
-<form method="POST" action="/ReviewPage/Update/@Model.ReviewId"
+<form method="POST" action="/ReviewPage/Update/@Model.ReviewId" enctype="multipart/form-data"
       style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
 
     <h2 style="text-align: center; color: #4CAF50;">Edit Review</h2>
@@ -38,10 +38,10 @@
         <input type="text" name="DessertId" id="DessertId" value="@Model.DessertId"
                style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px;" />
     </div>
-@*     <div>
+    <div>
         <label for="ReviewPic">Image:</label>
         <input type="file" name="ReviewPic" id="ReviewPic" />
-    </div> *@
+    </div>
     <div style="text-align: center; margin-top: 20px;">
         <input type="submit" value="Edit Review"
                style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer;" />

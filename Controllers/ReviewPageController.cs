@@ -98,8 +98,12 @@ namespace PassionProject.Controllers
         //POST ReviewPage/Update/{id}
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Update(int id, ReviewDto ReviewDto)
+        public async Task<IActionResult> Update(int id, ReviewDto ReviewDto, IFormFile ReviewPic)
         {
+            //Confirm receipt of review image
+            System.Diagnostics.Debug.WriteLine("Review Image "+ReviewPic.Length);
+            ServiceResponse imageresponse = await _reviewService.UpdateReviewImage(id, ReviewPic);
+
             ServiceResponse response = await _reviewService.UpdateReview(ReviewDto);
 
             if (response.Status == ServiceResponse.ServiceStatus.Updated)
