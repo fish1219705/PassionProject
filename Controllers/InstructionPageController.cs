@@ -194,9 +194,6 @@ namespace PassionProject.Controllers
                 return View("Error", new ErrorViewModel() { Errors = response.Messages });
             }
         }
-
-
-
     }
 }
 

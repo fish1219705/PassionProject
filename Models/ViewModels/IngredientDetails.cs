@@ -2,7 +2,6 @@
 {
     public class IngredientDetails
     {
-
         // An ingredient page must have an ingredient
         // FindIngredient(ingredientid)
 

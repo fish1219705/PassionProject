@@ -2,7 +2,6 @@
 {
     public class InstructionDetails
     {
-
         // An instruction page must have an instruction
         // FindInstruction(instructionid)
 
@@ -13,12 +12,6 @@
 
         // An instruction may have a ingredient associated to it
         public IEnumerable<IngredientDto>? InstructionIngredient { get; set; }
-
-   
-
-    
-            
-
 
     }
 }

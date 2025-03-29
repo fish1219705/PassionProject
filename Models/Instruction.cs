@@ -9,7 +9,7 @@ namespace PassionProject.Models
         public string ChangeIngredientOption { get; set; }
         public string QtyOfIngredient { get; set; }
 
-        // a instruction  belongs to one dessert
+        // a instruction belongs to one dessert
         public required virtual Dessert Dessert { get; set; }
         public int DessertId { get; set; }
 

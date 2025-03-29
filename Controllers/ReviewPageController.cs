@@ -144,8 +144,6 @@ namespace PassionProject.Controllers
                 return RedirectToAction("Error", new ErrorViewModel() { Errors = response.Messages });
             }
         }
-
-        
     }
 }
 
